@@ -1,0 +1,101 @@
+First: Number of objects;
+Type (Generic/Container)
+Coordinate_y Coordinate_x
+INVENTORY (a list of item IDs, terminated by a single ; ; only for containers)
+Texture file name (located in the "Images" folder)
+Map_ID
+Name
+Description (can be on multiple lines, with a TAB at the end)
+;;
+3
+;;
+Generic
+13 20
+proteine.png
+0
+Proteine
+Sfintele Proteine,
+inaccesibile
+muritorilor
+de rand sau
+altor zei
+in afara Sa.
+Legendele,invataturile
+divine revelate
+muritorilor de rand
+chiar de catre Dumnezeu,
+vorbesc despre
+Sfintele Proteine
+doar in treacat,
+preaslavindu-le
+cu fiecare cuvant,
+pentru a sublinia 
+nimicnicia creaturilor 
+profane, in fata
+gloriei, puterii 
+si a bicepsilor Sai.	
+;;
+Generic
+13 20
+greutati.png
+1
+Greutati
+Sfintele Greutati,
+in absenta Carora
+El nu s-a revelat
+niciodata, poate
+doar ca sa se flexeze
+pe muritori. In icoane,
+El este reprezentat
+intotdeauna purtandu-Le
+lejer in brate. Pentru
+muritori, greutatile
+au o semnificatie
+spirituala profunda,
+reprezentand povara
+pe care El o duce
+in spate pentru a
+pastra Ordinea in
+Univers. Muritorii
+de rand mai cred si ca,
+imitandu-L prin
+ridicarea de astfel de 
+greutati,se pot apropia 
+cumva de conditia divina.
+Acest lucru este
+imposibil si pune
+in pericol
+chiar mantuirea 
+persoanei in cauza,
+dupa cum o spune si 
+Sfantul Augustin 
+Antrenorul, in celebra
+sa opera
+"Culegere de 
+Antrenamente
+Spirituale".	
+;;
+Container
+13 22
+0 1 2 3 ;
+cutie.png
+1
+Sfanta Cutie
+Sfanta Cutie,
+despre continutul
+careia nu se cunoaste
+absolut nimic. Toate
+teoriile referitoare
+la continutul cutiei
+au fost declarate eretice.
+Sfantul Augustin
+Antrenorul, in
+"Culegerea de
+Antrenamente Spirituale",
+ne spune faptul ca
+aceasta cutie
+exista, insa ea insusi
+este o analogie cu
+natura de neinteles
+a Domnului.	
+;;

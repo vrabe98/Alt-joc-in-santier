@@ -1,0 +1,8 @@
+0 - black -IMPASSABLE
+1 - white -IMPASSABLE
+2 - red
+3 - green
+4 - blue
+5 - yellow
+6 - magenta
+7 - cyan

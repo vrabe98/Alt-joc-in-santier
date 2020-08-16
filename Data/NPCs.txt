@@ -1,0 +1,26 @@
+NUM_NPCs
+;;
+NPC_id	(incremental, starts at 1; code-wise, it is implicit,the encyclopedia offset is 200)
+NPC_name
+NPC_description (multiple lines, ended with a single TAB)
+NPC_STR NPC_DEX NPC_CON NPC_CHA
+NPC_money	(not really used now)
+MAP_id POSX POSY
+TEX_filename
+;;
+...
+;;
+1
+;;
+1
+Falsul Ciprian
+Vrea si el
+sa fie
+"Jmekeru jmekerilor".
+Trebuia sa inchei
+la "sa fie"...	
+10 10 10 10
+1
+1 27 12
+diavol.png
+;;

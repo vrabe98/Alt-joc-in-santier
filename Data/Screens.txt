@@ -1,0 +1,333 @@
+This is the file that will hold information related to UI elements (buttons, panels, etc.), such as position, size, color/texture or text.
+Structure:
+SCREEN:	(mandatory text)
+First screen ID (look up "Screen ID list.txt" and "Button type list.txt", improperly built GUI will have serious consequences. There has to be consistency between button types and the screen ID)
+Number of panels
+Number of buttons
+Number of textboxes
+PANELS: (mandatory text)
+Panel width Panel height
+Panel position_x Panel position_y
+Panel background color/texture (color names will be in lowercase only,texture file will be preffixed with a "tx-")
+;;
+...
+;;
+BUTTONS: (mandatory text)
+Button width Button height
+Button position_x Button position_y
+Button background color/texture in RGB format
+Button text
+Button action (defined in a file)
+;;
+...
+;;
+TEXTBOXES: (mandatory text)
+TextBox type ("input"/"output")
+TextBox width TextBox height
+TextBox position_x TextBox position_y
+TextBox background color/texture in RGB format
+TextBox associated string (from the String_IDs.txt file)
+;;
+...
+;;(end of textbox data)
+;;	(end of screen data)
+Second screen ID...
+;;
+;;	(beginning of actual data)
+SCREEN:
+1
+1
+2
+0
+PANELS:
+1024 768
+0 0
+tx-menu.png
+;;
+BUTTONS:
+200 100
+412 284
+50 50 50
+Start
+2
+;;
+200 100
+412 384
+50 50 50
+Exit
+0
+;;
+TEXTBOXES:
+;;
+SCREEN:
+2
+1
+5
+2
+PANELS:
+1024 768
+0 0
+tx-dumnezeu.jpg
+;;
+BUTTONS:
+200 100
+312 134
+50 50 50
+none
+-2
+;;
+200 100
+312 234
+50 50 50
+none
+-3
+;;
+200 100
+312 334
+50 50 50
+none
+-4
+;;
+200 100
+312 434
+50 50 50
+none
+-5
+;;
+200 100
+312 534
+50 50 50
+Ankepe
+3
+;;
+TEXTBOXES:
+input
+462 50
+50 50
+50 50 50
+0
+;;
+output
+225 500
+50 134
+50 50 50
+1
+;;
+;;
+SCREEN:
+3
+0
+3
+5
+PANELS:
+BUTTONS:
+170 68
+852 0
+50 50 50
+Character screen
+4
+;;
+174 68
+852 199
+50 50 50
+Encyclopedia
+5
+;;
+174 68
+852 130
+50 50 50
+Music
+6
+;;
+TEXTBOXES:
+output
+170 68
+172 0
+50 50 50
+2
+;;
+output
+170 68
+342 0
+50 50 50
+0
+;;
+output
+170 68
+512 0
+50 50 50
+5
+;;
+output
+170 68
+682 0
+50 50 50
+3
+;;
+output
+174 500
+850 268
+50 50 50
+4
+;;
+;;
+SCREEN:
+4
+1
+1
+2
+PANELS:
+1024 768
+0 0
+tx-echipament.jpg
+;;
+BUTTONS:
+100 50
+813 264
+50 50 50
+Inapoi la harta
+3
+;;
+TEXTBOXES:
+output
+450 300
+31 450
+50 50 50
+6
+;;
+output
+450 370
+543 380
+50 50 50
+7
+;;
+;;
+SCREEN:
+5
+1
+1
+1
+PANELS:
+1024 768
+0 0
+tx-enciclopedie.png
+;;
+BUTTONS:
+100 50
+31 670
+50 50 50
+Inapoi la harta
+3
+;;
+TEXTBOXES:
+output
+450 700
+543 50
+50 50 50
+8
+;;
+;;
+SCREEN:
+6
+1
+7
+2
+PANELS:
+1024 768
+0 0
+tx-nicu.jpg
+;;
+BUTTONS:
+95 50
+917 434
+50 50 50
+Inapoi la harta
+3
+;;
+100 50
+212 560
+50 50 50
+none
+-13
+;;
+100 50
+312 560
+50 50 50
+none
+-7
+;;
+100 50
+412 560
+50 50 50
+none
+-9
+;;
+100 50
+512 560
+50 50 50
+none
+-6
+;;
+100 50
+612 560
+50 50 50
+none 
+-8
+;;
+100 50
+712 560
+50 50 50
+none 
+-12
+;;
+TEXTBOXES:
+output
+400 50
+312 500
+50 50 50
+9
+;;
+output
+150 50
+437 655
+50 50 50
+10
+;;
+;;
+SCREEN:
+7
+1
+3
+1
+PANELS:
+1024 768
+0 0
+tx-lada.png
+;;
+BUTTONS:
+100 50
+718 575
+50 50 50
+Inapoi la harta
+3
+;;
+50 50
+487 309
+50 50 50
+none
+-11
+;;
+50 50
+487 409
+50 50 50
+none
+-10
+;;
+TEXTBOXES:
+output
+450 300
+31 450
+50 50 50
+6
+;;
+;;

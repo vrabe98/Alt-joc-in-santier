@@ -1,0 +1,43 @@
+26.07.2020 4:20 :
+*Mi-am amintit brusc ca nu exista niciun changelog pana acuma, ups
+*Eh, oricum nu ar fi fost multe de zis
+*Deocamdata am implementat niste elemente de interfata grafica (butoane, paneluri)
+*Incerc de vreo 2-3 saptamani sa prind destul entuziasm ca sa ma apuc mai serios de text-box-uri
+*Jur ca in stilul asta nu o sa termin niciunul din RPG-urile pe care le-am inceput
+*Asta e changelog sau jurnal oare?
+
+27.07.2020:
+*Am implementat cumva textbox-urile
+
+29.07.2020:
+*Am bagat putin continut
+*Cleaned up this mess a bit
+*Textul e centrat, finally
+
+08.08.2020:
+*Dupa multe update-uri pe care am uitat sa le mai pun aici...
+*Am marit fereastra in care ruleaza "jocul"
+*Avem mape si le putem si afisa
+*Avem mai multe "screen"-uri
+*Avem obiecte statice pe mape, cu descrieri
+*Avem iteme
+*Avem un inventar si sloturi de iteme pentru caracterul principal
+*Avem o asa-zisa enciclopedie cu descrierile itemelor
+*A si avem continut...mult si prajit
+*Cam...atat...e ceva totusi
+*Trebuie sa bag si un "Credits screen", n-as fi reusit sa fac atatea
+fara idei si motivatie din exterior...
+
+*Acuma se poate asculta si muzica
+
+09.08.2020:
+*Exista acuma un music player cu de toate, ca shaorma
+
+10.08.2020:
+*Am pregatit putin introducerea de NPCs in joc
+*"Putin" e cam mult spus totusi
+*"Putin" a devenit mai mult
+
+16.08.2020:
+*Music playerul are mai multe functionalitati yay
+*Cam atat tho

@@ -1,0 +1,17 @@
+ID	Name
+
+0 EXIT-reserved
+
+1	Main menu
+2	Character creation
+3	Map view
+4	Character view
+5	Encyclopedia
+6	Music
+7	Inventory transfer
+8	Journal/Quests
+9	Dialogue
+10	Vendor/Trade
+11	Combat
+12	Combat victory
+13	Death screen

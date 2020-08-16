@@ -1,0 +1,297 @@
+First: Number of items;
+Type	(Weapon/Armor/Generic/Shield)
+Item_ID (incremental,from 0 - also constitutes the encyclopedia entry code)
+Price	(floating point)
+Equip slot (only for non-generic items; if weapon: also two-handed, next to equip slot; 1 if twohanded, 0 if onehanded; equip slot is always RIGHT HAND-5, one-handed weapons can be equipped on the right hand as well though)
+Weight
+Stat (only for non-generic items)
+Name
+Description	(can be multiple lines, ended with TAB)
+Texture file name
+-----------
+SLOT CODES:
+CHEST 0				//Armor slots
+HEAD 1
+LEGS 2
+ARMS 3
+FEET 4
+RHAND 5				//Main hand slot
+LHAND 6				//Shield/Offhand weapon slot
+NONEQUIPABLE -1			//Items that can't be equipped, no need to use this here, since it is implicit
+;;
+13
+;;
+Generic
+0
+100.0
+10
+Ceva item nuj
+Chiar nuj	
+construction.png
+;;
+Armor
+1
+100.0
+0
+10
+10
+Tricou cu "Hedrea es numero uno"
+Self explanatory	
+tricouno.png
+;;
+Weapon
+2
+100.0
+5
+10
+1000
+Sfintele Greutati
+Sfintele Greutati, fara cusur, ale caror
+origine este necunoscuta pana si pentru
+cei mai de seama teologi si mistici ai
+taramului. Nu se cunoaste nici macar
+substanta fizica din care sunt alcatuite,
+insa un grup de teologi, denumit
+"Grupul de lobby pentru recunoasterea
+dimensiunii pur spirituale a Sfintelor
+Greutati" incearca sa puna presiune pe
+Sfanta Biserica in scopul recunoasterii
+unei naturi pur spirituale a Sfintelor
+Greutati. Aceasta chestiune va fi discutata
+pe larg in viitorul Conciliu, insa exista
+motive pentru a crede faptul ca membrii
+grupului vor fi excomunicati si declarati
+eretici, datorita inexistentei vreunei
+revelatii ale Domnului care sa dea vreun
+indiciu in privinta naturii Greutatilor.	
+greutatile.png
+;;
+Generic
+3
+100.0
+10
+Sfintele Proteine
+Sfintele Proteine, substanta a carei
+existenta este doar speculata de catre
+teologii plictisitori. Sfantul Augustin
+Antrenorul ne asigura totusi ca aceasta
+substanta exista, dar este tinuta in
+secret de catre Domnul, din iubirea
+sa nemarginita fata de umanitate,
+pe care vesnic o va ocroti pana si
+de catre ea insusi.	
+protein.png
+;;
+Generic
+4
+100.0
+10
+Potiune a linistii eterne
+Potiune divina inaccesibila muritorilor
+de rand. Toti care au baut-o au murit
+pe loc, sufletele lor presupunandu-se
+ca bantuie vesnic pustiurile acestei
+lumi, intr-o cautare continua a divinitatii,
+fata de prezenta carora au fost orbiti de
+insusi propriile actiuni. Pentru divinitati,
+potiunea are un efect calmant, reducand stresul
+si anxietatea. Stim acestea datorita viziunii 
+Sfantului Ionut Ciuperca, relatata elocvent
+intr-un interviu pentru revista 
+"Calatorii spirituale", pe vremea cand acesta
+colinda inca aceasta Lume. Sfanta Biserica
+a fost surprinsa de cele spuse de Sfantul
+Ionut Ciuperca, fiind, de altfel, foarte
+aproape de a-l declara pe acesta ca fiind
+doar un eretic nebun, de multe ori pe timpul
+vietii sale.	
+apamg.png
+;;
+Shield
+5
+100.0
+6
+10
+Aparatoarea Perfect Optimizata
+Rezultatul unor laborioase studii ale
+Domnului in domeniul protectiei divine,
+inceputul si totodata apogeul Stiintei
+Sfinte a Optimizarilor. Este un obiect
+sfant ale carui reprezentari le gasim 
+peste tot in iconografie, in toate 
+perioadele istorice, inca de la inceputurile
+timide ale umanitatii, in epoca pre-revelatorie, 
+chiar de dinainte de episodul traumatic 
+cunoscut ca si "Prima Febra Musculara", 
+in care au inceput sa se formeze dealurile
+si muntii acestei lumi.	
+scutoptim.png
+;;
+Armor
+6
+100.0
+1
+10
+10
+Ochelarii Credintei
+Desi par a fi simpli ochelari de soare, uitandu-se 
+la acestia, credinciosul poate descoperi, spre 
+stupoarea sa, imaginea Domnului, reflectat in toata
+gloria sa divina in lentilele care altfel
+ar parea normale. Nu se cunosc mecanismele teologice 
+si mistice care au dus la aparitia acestor ochelari, 
+insa ei apar regulat, in anumite locatii de pe
+aceasta Lume. Se presupune ca Domnul detine si El
+o pereche de astfel de ochelari, in care se reflecta
+tot timpul, privindu-Se. Speculatiile cu privire la
+rolul ochelarilor se invart in jurul perfectiunii
+Domnului, perfectiune necontestata de catre teologi
+si mistici deopotriva.	
+ocheti.png
+;;
+Weapon
+7
+100.0
+5
+10
+1000
+Marile Greutati
+Existenta acestora este pusa cumva sub semnul 
+intrebarii de catre teologi, patologic de sceptici 
+din cauza dorintei de a se apropia de divinitate prin 
+cunoasterea rationala a naturii acesteia. Sunt un 
+concept central in mistica, totusi, datorita asimilarii
+acestora cu povara reprezentata de umanitate pentru
+Domnul. Nimeni nu cunoaste, insa, natura acestor
+greutati, existand polemici aprinse intre misticii
+adepti ai unei naturi fizice si misticii adepti ai
+unei naturi spirituale a greutatilor. Cele doua
+tabere au recurs deseori la asa-zise
+"Razboaie spirituale", constand in rugaciuni aprinse
+impotriva celeilalte tabere. In afara de cateva
+inaltari la Domnul, rugaciunile nu au avut alte
+efecte vizibile. Exista totusi si o tabara sincretica,
+ce propune o natura duala a Marilor Greutati. Aceasta 
+pozitie este foarte apropiata de pozitia oficiala a
+Sfintei Biserici cu privire la natura Domnului Insusi,
+ceea ce a facut-o foarte atractiva pentru unii mistici 
+mai inclinati spre teologie decat spre experienta
+mistica a uniunii cu Domnul.	
+marilegreutati.png
+;;
+Armor
+8
+100.0
+0
+10
+10
+Tricoul cu Pecetile Sfinte
+Acest tricou este intotdeauna insotit de catre o
+cravata sfanta, cu rolul de a ascunde Axa Centrala
+a divinitatii. Tricoul reflecta perfect atotputernicia
+Domnului, incluzand si cateva bile dintr-o substanta
+necunoscuta muritorilor, care se presupune ca ar
+reprezenta accesorii menite a inspaimanta creatiile
+diavolesti prin proiectarea unor puternice raze
+de lumina divina, insuportabile pentru ochii
+acestor creatii nefericite, ochi obisnuiti sa vada
+doar Intunericul. Din aceasta cauza, straiele
+teologilor includ o reproducere a acestui tricou,
+care nu include totusi cravata sfanta, deoarece
+muritorii de rand nu au ce ascunde in fata Domnului.
+In fata Domnului, cu totii suntem goi, caci privirea
+Sa patrunde in cele mai intunecate si adanci colturi
+ale sufletului nostru.	
+tricoul.png
+;;
+Armor
+9
+100.0
+3
+10
+100
+Ceasul Eternitatii
+In iconografie, Domnul apare intotdeauna purtand asupra
+Sa un obiect asemanator cu un ceas de-al muritorilor
+de pe aceasta lume. Exista doar speculatii privind
+natura si rolul acestui obiect sfant, conform carora
+acesta ar fi intr-adevar un ceas, un ceas cu ajutorul
+caruia Domnul dirijeaza scurgerea Timpului pe aceasta
+lume. Aceste speculatii au fost declarate insa eretice,
+inca de la Primul Conciliu, pozitia oficiala a
+Sfintei Biserici a Adevaratului Ciprian cel Dintai si
+Etern Invingator este ca Domnul este atotputernic si nu
+are nevoie de obiecte pentru a-Si exercita puterea.	
+ceasu.png
+;;
+Armor
+10
+100.0
+2
+10
+100
+Pantalonii celui Dintai Antrenor
+Domnul, adeseori denumit si Cel Dintai Antrenor
+sau Adevaratul Ciprian (in opozitie cu Falsul Ciprian,
+blestemata fie-i existenta nefericita pe cale de a lua
+sfarsit), i-A aparut Sfantului Augustin Antrenorul
+in vis purtand un vesmant pe care acesta din urma
+l-a interpretat ca fiind o pereche de pantaloni scurti.
+Nu se cunoaste originea acestora, insa se presupune ca
+apartin integral partii fizice a Domnului. Problema
+teologica a originii Pantalonilor se transforma astfel
+in problema originii Domnului, chestiune care nu
+intereseaza pe umilii muritori de rand.	
+pantaloni.png
+;;
+Armor
+11
+100.0
+4
+10
+100
+Sandalele Inaltarii Sufletului
+Aceste obiecte sfinte sunt deseori invocate de catre
+credinciosi in propriile rugaciuni, datorita asocierii
+acestora cu puritatea spirituala si cu neprihanirea.
+Datorita uneia din nenumaratele viziuni ale
+Sfantului Ionut Ciuperca, cunoastem faptul ca fiecare
+credincios poarta aceste sandale in timpul rugaciunilor
+infocate, ajutand sufletul ingreunat de pacate in
+drumul sau anevoios spre unirea cu Domnul. In momentul
+trecerii sale catre Domnul, Sfantul Ionut Ciuperca
+s-a inaltat la ceruri purtand aceste sfinte Sandale,
+inflacarate totusi, lucru marturisit de toti cei
+prezenti la eveniment.	
+sandale.png
+;;
+Generic
+12
+100.0
+10
+Suplimentul Eternului Invingator
+Revelarea acestui supliment a provocat adevarate unde
+de soc in randul teologilor, atat de siguri pe
+omnipotenta Domnului. Au urmat lungi discutii in
+contradictoriu intre diferite grupuri de teologi,
+fiecare cu propriile teorii referitoare la Supliment.
+Aceste discutii au luat o turnura tragica in momentul
+in care Sfantul Marian cel cu Capul in Nori a fost
+asasinat, capul fiindu-i apoi separat de trup si
+aruncat blasfematoriu inspre Ceruri, la putin timp
+dupa prezentarea propriei sale teorii referitoare la
+Supliment. Discursul sau plin de patos a infuriat
+intr-atat un grup de teologi, incat membrii sai au
+apelat la serviciile unui asa-zis "grup de tiristi
+ceresti" pentru organizarea unei intalniri premature
+a Sfantului Marian cel cu Capul in Nori cu Domnul.
+Sufletele membrilor acelui grup inca bantuie aceasta
+Lume, de la un capat la altul, in cautarea Caii spre
+Domnul, cu care nu vor reusi, insa, sa se intalneasca
+niciodata. Teoria oficiala referitoare la Supliment
+care a fost adoptata in urma discutiilor ni-l
+prezinta ca fiind creat insusi de Domnul, din
+infinita sa putere, pentru a-I servi ulterior,
+in Razboiul Final dat contra Falsului Ciprian.	
+pre.png
+;;

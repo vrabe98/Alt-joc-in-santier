@@ -1,0 +1,31 @@
+This file will hold the initial information about the main character. The format is described in the next few lines:
+DESCRIPTION (multi-line, ended with a single TAB)
+INIT_STRENGTH
+INIT_DEXTERITY
+INIT_CONSTITUTION
+INIT_CHARISMA
+INIT_money
+INIT_map_id POSX POSY
+ITEM_SLOT_POSITIONS (in order, in pairs like this POS_X POS_Y; for ARMS slot, POS_X POX_Y DUP_X DUP_Y; each slot separated by newline,for clarity)
+INVENTORY (a list of item IDs, terminated by a single ; )
+CAHR_SPRITE_filename
+;; (terminator string, mandatory)
+S-a autoproclamat
+recent ca fiind
+"Jmekeru jmekerilor"	
+200
+10
+10
+10
+1000
+0 10 10
+743 124
+743 54
+743 192
+673 124 813 124
+743 264
+673 54
+813 54
+0 1 2 3 4 5 6 7 8 9 10 11 12 ;
+char.jpg
+;;

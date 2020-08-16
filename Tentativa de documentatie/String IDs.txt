@@ -1,0 +1,13 @@
+String_ID String_Name
+
+0 Character_name
+1 Character_data
+2 HP
+3 Money
+4 Map tile info
+5 Current map name
+6 Selected item info
+7 Full character data
+8 Encyclopedia entry description
+9 Current song playing
+10 Current song time
