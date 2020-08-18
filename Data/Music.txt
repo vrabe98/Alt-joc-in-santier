@@ -19,6 +19,8 @@ Hugo-Ugo - Motoroller.wav
 Hum - I Hate It Too.wav
 Hum - Isle Of The Cheetah.wav
 Hum- The Scientists.wav
+Jack Stauber - Beird.wav
+Jack Stauber - It's Alright.wav
 Kino - Gruppa Krovi.wav
 Kino - Pesnya bez slov.wav
 Kino - Ran'she v tvoih glazah.wav
@@ -28,6 +30,7 @@ Kino - Zvezda po imeni Solnce.wav
 Maksim Kotomtsev - Na Zholtoy Doroge.wav
 Molchat Doma - Na Dne.wav
 Molchat Doma - Prognoz.wav
+My Dad Is Dead - Force Feed.wav
 New Order - Blue Monday.wav
 otmena - holod.wav
 Palms Trax - Equation.wav

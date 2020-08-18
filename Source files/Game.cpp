@@ -41,6 +41,7 @@ void Game::Play() {
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter)) {
 			main_char->Action();
+			Sleep(100);
 		}
 		main_window->Render(state);
 		switch (state) {
@@ -205,13 +206,13 @@ void Game::Load_npcs(std::ifstream& npc_file) {
 }
 
 void Game::Load() {
-	std::ifstream screen_file("Screens.txt", std::ifstream::in);
-	std::ifstream char_file("Character.txt", std::ifstream::in);
-	std::ifstream map_file("Maps.txt", std::ifstream::in);
-	std::ifstream obj_file("Objects.txt", std::ifstream::in);
-	std::ifstream item_file("ItemDB.txt", std::ifstream::in);
-	std::ifstream music_file("Music.txt", std::ifstream::in);
-	std::ifstream npc_file("NPCs.txt", std::ifstream::in);
+	std::ifstream screen_file("Data/Screens.txt", std::ifstream::in);
+	std::ifstream char_file("Data/Character.txt", std::ifstream::in);
+	std::ifstream map_file("Data/Maps.txt", std::ifstream::in);
+	std::ifstream obj_file("Data/Objects.txt", std::ifstream::in);
+	std::ifstream item_file("Data/ItemDB.txt", std::ifstream::in);
+	std::ifstream music_file("Data/Music.txt", std::ifstream::in);
+	std::ifstream npc_file("Data/NPCs.txt", std::ifstream::in);
 	Alloc_strings();
 	while (!font.loadFromFile("Fonts//TERMINUS.TTF")) {}
 	main_window->Set_font(&font);
