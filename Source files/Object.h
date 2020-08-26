@@ -16,6 +16,7 @@ protected:
 	sf::VertexArray vertices;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates state) const;
 public:
+	virtual ~Object(){}
 	virtual int Type() = 0;
 	int Map() { return map_id; }
 	sf::Vector2i Coords() { return coords; }
@@ -28,19 +29,19 @@ public:
 
 class Generic_object :public Object {
 public:
-	int Type() { return GENERIC_OBJ; }
-	Inventory* Get_inventory() { return nullptr; }
-	void Action() {}
-	virtual void Load(std::ifstream& f);
+	int Type() override { return GENERIC_OBJ; }
+	Inventory* Get_inventory() override { return nullptr; }
+	void Action() override {}
+	virtual void Load(std::ifstream& f) override;
 };
 
 class Container_object :public Object {
 	Inventory* inventar;
 public:
-	int Type() { return CONTAINER; }
-	void Action(){}
-	Inventory* Get_inventory() {
+	int Type() override { return CONTAINER; }
+	void Action() override {}
+	Inventory* Get_inventory() override {
 		return inventar;
 	}
-	virtual void Load(std::ifstream& f);
+	virtual void Load(std::ifstream& f) override;
 };

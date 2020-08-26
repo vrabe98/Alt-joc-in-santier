@@ -38,6 +38,11 @@ void GameWindow::Render(MusicContainer* playlist){
 	target.draw(*playlist);
 }
 
+void GameWindow::Render(DialogueBox* diag){
+	sf::RenderTarget& target = render_wnd;
+	diag->Draw(target);
+}
+
 void GameWindow::Render(Inventory* inventory) {
 	sf::RenderTarget& target = render_wnd;
 	target.draw(*inventory);
@@ -51,17 +56,18 @@ void GameWindow::Render(int current_state) {
 		sf::Vector2i pos;
 		switch (e.type) {
 		case sf::Event::MouseWheelScrolled:
-		if (current_state == CHARACTER_VIEW||current_state==ENCYCLOPEDIA||current_state==INV_TRANSFER) {
-				pos.x=e.mouseWheelScroll.x;
-				pos.y=e.mouseWheelScroll.y;
-				game->Get_mainchar()->Wheel_Scroll(pos, -1*e.mouseWheelScroll.delta,current_state);
-		}
-		else if (current_state == MUSIC) {
 			pos.x = e.mouseWheelScroll.x;
 			pos.y = e.mouseWheelScroll.y;
-			game->Get_playlist()->Wheel_scroll(pos, -1 * e.mouseWheelScroll.delta);
-		}
-		break;
+			if (current_state == CHARACTER_VIEW||current_state==ENCYCLOPEDIA||current_state==INV_TRANSFER) {
+					game->Get_mainchar()->Wheel_Scroll(pos, -1*e.mouseWheelScroll.delta,current_state);
+			}
+			else if (current_state == MUSIC) {
+				game->Get_playlist()->Wheel_scroll(pos, -1 * e.mouseWheelScroll.delta);
+			}
+			else if (current_state == MAP_VIEW) {
+				game->Get_dialoguebox()->Wheel_scroll(-1 * e.mouseWheelScroll.delta);
+			}
+			break;
 		case sf::Event::MouseButtonPressed:
 			if (e.mouseButton.button == sf::Mouse::Left)
 				pos.x = e.mouseButton.x;
@@ -73,6 +79,9 @@ void GameWindow::Render(int current_state) {
 				else if (current_state == MUSIC) {
 					game->Get_playlist()->LMB_Pressed(pos);
 				}
+				else if (current_state == MAP_VIEW) {
+					game->LMB_Pressed(pos);
+				}
 				break;
 		case sf::Event::MouseButtonReleased:
 			if (e.mouseButton.button == sf::Mouse::Left)
@@ -80,6 +89,11 @@ void GameWindow::Render(int current_state) {
 				pos.y = e.mouseButton.y;
 				retval = states[current_state].LMB_Released(pos);
 				break;
+		case sf::Event::MouseMoved:
+			pos.x = e.mouseMove.x;
+			pos.y = e.mouseMove.y;
+			game->MouseMoved(pos);
+			break;
 		case sf::Event::TextEntered:
 			states[current_state].KeyPress(static_cast<char>(e.text.unicode));
 			break;

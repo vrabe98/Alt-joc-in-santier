@@ -9,8 +9,8 @@ ID	Name
 5	Encyclopedia
 6	Music
 7	Inventory transfer
-8	Journal/Quests
-9	Dialogue
+8	Dialogue
+9	Journal/Quests
 10	Vendor/Trade
 11	Combat
 12	Combat victory

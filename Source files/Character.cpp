@@ -6,6 +6,7 @@
 #define HP_BASE 100.0
 
 #define CHARACTER_ENCYCLOPEDIA_OFFSET 200
+#define MAP_ENCYCLOPEDIA_OFFSET 400
 
 #define UP 1
 #define DOWN 2
@@ -75,6 +76,28 @@ NPC::NPC(std::ifstream& f) {
 		exit(-10);
 	}
 	RefreshHP();
+}
+
+void NPC::Load_dialogue(std::ifstream& f){
+	int num_states;
+	std::string aux;
+	f >> num_states >> aux;
+	if (aux != ";;") {
+		std::cout << "\nNPC dialogue file error! Terminator string wrong or missing!";
+		exit(-24);
+	}
+	dialogue_entry = new DialogueState*[num_states];
+	for (int i = 0; i < num_states; i++) {
+		dialogue_entry[i] = new DialogueState;
+	}
+	for (int i = 0; i < num_states; i++) {
+		dialogue_entry[i]->Load(f,dialogue_entry);
+	}
+	f >> aux;
+	if (aux != ";;") {
+		std::cout << "\nNPC dialogue file error! Terminator string wrong or missing!";
+		exit(-21);
+	}
 }
 
 void NPC::Update_info(){
@@ -177,6 +200,7 @@ void Main_character::Update_info(){
 	info = "INFO:\n\nName: " + *name+"\n\n'" + description + "'\n\nFortza: " + std::to_string(strength) + "\nSmecherie: " + std::to_string(dexterity) + "\nBarosaneala: " + std::to_string(constitution) + "\nScoala vieti: " + std::to_string(charisma) + "\n\nHP: " + std::to_string((int)hp) + "\nArmura: "+std::to_string(Armor())+"\nDaune cu stanga: "+std::to_string(Offhand_Damage())+"\nDaune cu dreapta: "+std::to_string(Mainhand_Damage())+"\nValuta: " + std::to_string((int)currency) + " $";
 	game->Update_string(CHAR_INFO_FULL, &info);
 	encyclopedia.Update(*name, description, 0 + CHARACTER_ENCYCLOPEDIA_OFFSET);
+	encyclopedia.Update(game->Get_map(current_map)->Name(), game->Get_map(current_map)->Description(), current_map + MAP_ENCYCLOPEDIA_OFFSET);
 }
 
 void Character::Move(int keycode) {

@@ -12,6 +12,7 @@ protected:
 	int string_code;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates state) const;
 public:
+	virtual ~TextBox(){}
 	virtual void Action() = 0;
 	virtual void Update() = 0;
 	int Is_highlighted() { return highlighted + 1; }

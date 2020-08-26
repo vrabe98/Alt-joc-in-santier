@@ -7,6 +7,7 @@
 #include "Map.h"
 #include "Item.h"
 #include "MusicContainer.h"
+#include "DialogueBox.h"
 
 class Main_character;
 
@@ -46,6 +47,7 @@ class Game
 	Character* npcs[MAX_NPCS];
 	Main_character* main_char;
 	GameWindow* main_window;
+	DialogueBox diag;
 	MusicContainer playlist;
 public:
 	Game() {
@@ -63,10 +65,16 @@ public:
 	MusicContainer* Get_playlist() {
 		return &playlist;
 	}
+	void Start_dialogue(int npc_id);
+	void LMB_Pressed(sf::Vector2i pos){
+		diag.LMB_Press(pos);
+	}
 	std::string* Alloc_string(int, std::string="");
-	inline Main_character* Get_mainchar() { return main_char; }
+	DialogueBox* Get_dialoguebox() { return &diag; }
+	Main_character* Get_mainchar() { return main_char; }
 	Item* Get_item(int i) { return items[i]; }
 	Character* Get_char(int i) { return npcs[i]; }
+	void MouseMoved(sf::Vector2i pos);
 	void Change_state(int newstate) {
 		state = newstate;
 	}
@@ -87,6 +95,7 @@ public:
 	void Tile_action(sf::Vector2i pos, int map) { maps[map]->Tile_action(pos); }
 	int Check_terrain(int,sf::Vector2i);
 	void Alloc_strings();
+	void Load_dialogues(std::ifstream&);
 	void Load_npcs(std::ifstream&);
 	void Load_music(std::ifstream&);
 	void Load_objects(std::ifstream&);

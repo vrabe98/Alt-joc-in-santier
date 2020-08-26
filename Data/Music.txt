@@ -21,6 +21,7 @@ Hum - Isle Of The Cheetah.wav
 Hum- The Scientists.wav
 Jack Stauber - Beird.wav
 Jack Stauber - It's Alright.wav
+Jack Stauber - Oh Klahoma.wav
 Kino - Gruppa Krovi.wav
 Kino - Pesnya bez slov.wav
 Kino - Ran'she v tvoih glazah.wav
@@ -36,5 +37,13 @@ otmena - holod.wav
 Palms Trax - Equation.wav
 Slint - Good Morning, Captain.wav
 teen suicide - the same things happening to me all the time even in my dreams.wav
+The Serfs - Beauty Contest.wav
+The Serfs - Perverted disco.wav
+The Serfs - Ringing the changes.wav
 Trivalia - Slave Boga.wav
+Wire - Brazil.wav
+Wire - Field Day for the Sundays.wav
+Wire - It's So Obvious.wav
+Wire - Mannequin.wav
+Wire - Mr Suit.wav
 Zabavnye igry - Bereg.wav

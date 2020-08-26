@@ -10,4 +10,3 @@ public:
 	Panel(std::ifstream&);
 	Panel(){}
 };
-

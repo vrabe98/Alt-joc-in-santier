@@ -56,7 +56,10 @@ void Map::Tile_action(sf::Vector2i pos){
 	case NPC_:
 		for (std::list<int>::iterator i = characters.begin(); i != characters.end(); i++) {
 			Character* npc = game->Get_char(*i);
-			if (npc->Coords() == pos) message = npc->Name();
+			if (npc->Coords() == pos) {
+				message = npc->Name();
+				game->Start_dialogue(*i);
+			}
 			game->Get_mainchar()->Encyclopedia()->Try_add(npc->Name(), npc->Description(), npc->Id() +CHAR_OFFSET);
 		}
 		break;
@@ -120,6 +123,7 @@ void Map::Load(std::ifstream& f,sf::Texture* conn_texture) {
 	f >> aux;	//skip map ID
 	f.ignore();
 	getline(f, name, '\n');
+	std::getline(f, description, '\t');
 	f >> dim_y >> dim_x;
 	map_arr = (char*)malloc(sizeof(char) * dim_x * dim_y);
 	vertices.setPrimitiveType(sf::Quads);

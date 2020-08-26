@@ -5,6 +5,7 @@
 #include <string>
 #include "Encyclopedia.h"
 #include "Inventory.h"
+#include "DialogueState.h"
 
 #define SLOTCW 50
 #define SLOTCH 50
@@ -47,8 +48,11 @@ protected:
 	float hp, currency;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates state) const;
 public:
+	virtual ~Character(){}
 	Character(){}
 	Character(std::ifstream&);
+	virtual DialogueState* Dialogue()=0;
+	virtual void Load_dialogue(std::ifstream& f)=0;
 	ItemSlot** Get_slots() { return slots; }
 	int Armor() {
 		int armor = 0;
@@ -112,6 +116,8 @@ public:
 	Inventory* Get_inventory_interact() {
 		return interact_inventory;
 	}
+	DialogueState* Dialogue() { return nullptr; }
+	void Load_dialogue(std::ifstream& f) {}
 	void Action();
 	void Getname();
 	void Update_info();
@@ -132,8 +138,14 @@ public:
 };
 
 class NPC :public Character {
+	DialogueState** dialogue_entry;
 public:
 	NPC(){}
 	NPC(std::ifstream&);
+	DialogueState* Dialogue() { return dialogue_entry[0]; }
+	DialogueState* Get_state(int id) {
+		return dialogue_entry[id];
+	}
+	void Load_dialogue(std::ifstream& f);
 	void Update_info();
 };

@@ -22,12 +22,14 @@ class Map:public sf::Drawable
 	std::list<Connection> conns;
 	int dim_x, dim_y;
 	std::string name;
+	std::string description;
 	std::list<Object*> objects;
 	std::list<int> characters;
 public:
 	Connection* Get_conn_data(sf::Vector2i pos);
 	int Check_terrain(sf::Vector2i pos);
 	std::string Name() { return name; }
+	std::string Description() { return description; }
 	void Add_character(int id) {
 		characters.push_back(id);
 	}

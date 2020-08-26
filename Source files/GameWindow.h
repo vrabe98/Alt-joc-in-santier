@@ -13,6 +13,7 @@ class Item;
 class ItemSlot;
 class Encyclopedia;
 class MusicContainer;
+class DialogueBox;
 
 class GameWindow
 {
@@ -33,6 +34,7 @@ public:
 	void Render(ItemSlot** slots);
 	void Render(Encyclopedia* encyclopedia);
 	void Render(MusicContainer* playlist);
+	void Render(DialogueBox* diag);
 	void Render(int);
 	int Ret(int current_state) {
 		if (retval > -1) return retval;

@@ -18,4 +18,3 @@ public:
 	void Load(std::ifstream&,int,int,int,sf::Font&);
 	void Draw(sf::RenderTarget&);
 };
-

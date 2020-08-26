@@ -27,27 +27,30 @@ void Game::Play() {
 	playlist.Begin_timecalc();
 	while (main_window->IsOpen()&&state!=EXIT) {
 		main_char->Update_info();
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
-			main_char->Move(UP);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
-			main_char->Move(DOWN);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-			main_char->Move(LEFT);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
-			main_char->Move(RIGHT);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter)) {
-			main_char->Action();
-			Sleep(100);
+		if (!diag.Active()) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
+				main_char->Move(UP);
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+				main_char->Move(DOWN);
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
+				main_char->Move(LEFT);
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
+				main_char->Move(RIGHT);
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter)) {
+				main_char->Action();
+				Sleep(100);
+			}
 		}
 		main_window->Render(state);
 		switch (state) {
 		case MAP_VIEW:
 			main_window->Render(maps[main_char->Get_map()]);
 			main_window->Render(main_char);
+			if (diag.Active()) main_window->Render(&diag);
 			break;
 		case CHARACTER_VIEW:
 			main_window->Render(main_char->Inventory());
@@ -101,7 +104,7 @@ void Game::Load_maps(std::ifstream& map_file){
 	std::string aux;
 	int num_maps = 0;
 	connection_texture.loadFromFile("Images//arrow.png");
-	for (int i = 0; i < 10; i++) {	//skip header
+	for (int i = 0; i < 11; i++) {	//skip header
 		std::getline(map_file , aux, '\n');
 	}
 	map_file >> num_maps;
@@ -205,6 +208,26 @@ void Game::Load_npcs(std::ifstream& npc_file) {
 	}
 }
 
+void Game::Load_dialogues(std::ifstream& dialogue_file) {
+	std::string aux;
+	int i = 0;
+	for (int i = 0; i < 16; i++) {	//skip header
+		std::getline(dialogue_file, aux, '\n');
+	}
+	while (!dialogue_file.eof()) {
+		int id;
+		dialogue_file >> id;
+		dialogue_file.ignore();
+		std::getline(dialogue_file, aux, '\n');
+		if (aux != npcs[id-1]->Name()) {
+			std::cout << "\nNPC dialogue file error! NPC name and ID mismatch!";
+			exit(-20);
+		}
+		npcs[i]->Load_dialogue(dialogue_file);
+		i++;
+	}
+}
+
 void Game::Load() {
 	std::ifstream screen_file("Data/Screens.txt", std::ifstream::in);
 	std::ifstream char_file("Data/Character.txt", std::ifstream::in);
@@ -213,6 +236,7 @@ void Game::Load() {
 	std::ifstream item_file("Data/ItemDB.txt", std::ifstream::in);
 	std::ifstream music_file("Data/Music.txt", std::ifstream::in);
 	std::ifstream npc_file("Data/NPCs.txt", std::ifstream::in);
+	std::ifstream dialogue_file("Data/Dialogues.txt", std::ifstream::in);
 	Alloc_strings();
 	while (!font.loadFromFile("Fonts//TERMINUS.TTF")) {}
 	main_window->Set_font(&font);
@@ -223,12 +247,24 @@ void Game::Load() {
 	Load_objects(obj_file);
 	Load_music(music_file);
 	Load_npcs(npc_file);
+	Load_dialogues(dialogue_file);
 	main_char->Getname();
+}
+
+void Game::Start_dialogue(int npc_id){
+	if (!diag.Active()) {
+		diag.Activate_deactivate();
+		diag.Enter_dialogue(npcs[npc_id]->Dialogue(),npc_id);
+	}
 }
 
 std::string* Game::Alloc_string(int code, std::string string) {
 	string_db[code] = new std::string(string);
 	return string_db[code];
+}
+
+void Game::MouseMoved(sf::Vector2i pos){
+	diag.MouseMoved(pos);
 }
 
 int Game::Check_terrain(int map, sf::Vector2i pos) {

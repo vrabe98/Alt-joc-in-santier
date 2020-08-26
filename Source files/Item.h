@@ -46,6 +46,7 @@ protected:
 		}
 	}
 public:
+	virtual ~Item(){}
 	int Id() { return id; }
 	float Price() { return price; }
 	int Equip_slot() { return equip_slot; }
@@ -62,42 +63,42 @@ public:
 
 class Generic :public Item {
 public:
-	int _Armor() { return 0; }
-	float _Damage() { return 0; }
-	int Type() { return GENERIC; }
-	std::string Typestr() { return "\n\nGeneric item"; }
-	std::string Info();
-	void Load(std::ifstream& f);
+	int _Armor() override { return 0; }
+	float _Damage() override { return 0; }
+	int Type() override { return GENERIC; }
+	std::string Typestr() override { return "\n\nGeneric item"; }
+	std::string Info() override;
+	void Load(std::ifstream& f) override;
 };
 
 class Weapon :public Item {
 	float damage;
 public:
-	int _Armor() { return 0; }
-	float _Damage() { return damage; }
-	int Type() { return WEAPON; }
-	std::string Typestr() { return "\n\nWeapon"; }
-	std::string Info();
-	void Load(std::ifstream& f);
+	int _Armor() override { return 0; }
+	float _Damage() override { return damage; }
+	int Type() override { return WEAPON; }
+	std::string Typestr() override { return "\n\nWeapon"; }
+	std::string Info() override;
+	void Load(std::ifstream& f) override;
 };
 
 class Armor :public Item {
 	int armor;
 public:
-	int _Armor() { return armor; }
-	float _Damage() { return 0; }
-	int Type() { return ARMOR; }
-	std::string Typestr() { return "\n\nArmor"; }
-	std::string Info();
-	void Load(std::ifstream& f);
+	int _Armor() override { return armor; }
+	float _Damage() override { return 0; }
+	int Type() override { return ARMOR; }
+	std::string Typestr() override { return "\n\nArmor"; }
+	std::string Info() override ;
+	void Load(std::ifstream& f) override;
 };
 
 class Shield :public Item {
 public:
-	int _Armor() { return 0; }
-	float _Damage() { return 0; }
-	int Type() { return SHIELD; }
-	std::string Typestr() { return "\n\nShield"; }
-	std::string Info();
-	void Load(std::ifstream& f);
+	int _Armor() override { return 0; }
+	float _Damage() override { return 0; }
+	int Type() override { return SHIELD; }
+	std::string Typestr() override { return "\n\nShield"; }
+	std::string Info() override;
+	void Load(std::ifstream& f) override;
 };

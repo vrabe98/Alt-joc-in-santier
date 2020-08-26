@@ -1,0 +1,42 @@
+DIALOGUE FILE FORMAT:
+;;
+NPC_id
+NPC_name (these two have to correspond)
+num_states
+;;
+STATE_id	(incremental, starts with 0, 0 being the entry point)
+num_options
+NPC_message
+.
+.	list of dialogue options, in the format "TEXT \n next_state_id"
+.	if next_state_id==-1, the option will lead to exiting the dialogue
+;;
+...	(data for the next states)
+;;	(end of last state data)
+;;	(end of NPC data)
+1
+Falsul Ciprian
+2
+;;
+0
+4
+Ceau
+ Ceau, o, *insert titluri demonice, printre care si Jmekeru' *,
+prosterna-m-as in fata ochilor tai, izvoare ale Intunericului.	
+1
+Hoardele tale de demoni canta manele de jale in cinstea
+victoriei finale a Luminii. Mai e putin.	
+1
+*efectiv nu stiu ce replica sa mai scriu da am nevoie de 4
+ca sa exemplific scrollul mai calumea*	
+1
+Ok. Ceau.	
+-1
+;;
+1
+1
+Cf
+ ...	
+-1
+;;
+;;

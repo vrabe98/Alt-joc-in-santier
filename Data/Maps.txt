@@ -1,5 +1,6 @@
 Map_ID	-	purely cosmetic in this file, it is implicit
 Name
+Description (multi-line, terminated with a TAB; the encyclopedia entry id offset is 400)
 Dim_y Dim_x
 Map array
 CONNECTIONS
@@ -12,6 +13,21 @@ Number of maps:
 ;;
 0
 Lumea cu proteine
+Aceasta este lumea Luminii,
+creata de catre Domnul,
+din Nimicul fara forma,
+ce domnea inainte de Creatie.
+Aceasta lume este inundata de
+Lumina si Iubirea Domnului,
+Lumina si Iubire nemarginite.
+Teologii speculeaza doar
+faptul ca aceasta lume in sine
+este nemarginita fizic, dar
+nu se incumeta a merge mai
+departe cu cercetarile. Chiar
+daca simtim pretutindeni prezenta
+Domnului, nu traim in aceasta lume
+a Luminii.	
 28 34
 1111111111111111111111111111111111
 1444444444444444444444444444444441
@@ -47,6 +63,23 @@ CONNECTIONS:
 ;;
 1
 Lumea fara proteine
+Aceasta este lumea in care ne
+ducem cu totii traiul lipsit de
+un alt sens in afara de slujirea
+Domnului, de eliberarea sufletului,
+de trecerea catre Lumina si Iubire
+vesnica. Este o lume in care
+Intunericul si Lumina coexista,
+in care Intunericul reprezentat
+de catre Materie tine captiva
+Lumina, reprezentata de o particica
+pura a sufletului. Aceasta lume este
+complet lipsita de proteine, fiind
+totodata si salasul Falsului Ciprian.
+Se intelege astfel de ce Proteinele,
+o creatie divina, nu au putut fi lasate
+a exista in aceasta lume pangarita de
+prezenta Diavolului.	
 28 34
 1111111111111111111111111111111111
 1444444444444444444444444444444441
