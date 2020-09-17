@@ -1,0 +1,12 @@
+-2	Increment STR
+-3	Increment DEX
+-4	Increment CON
+-5	Increment CHA
+-6	Play/Pause music
+-7	Prev song
+-8	Next song
+-9	Loop/sequential
+-10	Transfer item from player to non player inventory
+-11	Transfer item from non player to player inventory
+-12	Skip 10 seconds forwards - Music
+-13	Skip 10 seconds backwards - Music

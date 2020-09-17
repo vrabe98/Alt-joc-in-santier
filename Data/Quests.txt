@@ -1,0 +1,44 @@
+Quest ID	(incremental, from 0)
+Quest name
+Quest description	(can be multi-line, ended by a single TAB)
+Number of objective
+OBJECTIVES: (mandatory string)
+	Objective 1 description	(this portion is indented for clarity)
+	Number of flags
+	List of all flags for objective 1 (the name and the counter)
+	;;
+	Next objective...
+	;;
+;;
+0
+Falsul Ciprian iese la Lumina
+Falsul Ciprian, Marele Rival, fie-i existenta
+cat mai scurta si plina de agonie, a iesit
+din salasul sau din "Lumea fara Proteine",
+amenintand cu prezenta sa intreaga Creatie.
+El trebuie oprit cu orice pret si aruncat
+din nou in strafundul neantului, in afara
+"Lumii fara Proteine". Sa fie acesta inceputul
+Bataliei Finale?	
+2
+OBJECTIVES:
+Gaseste-l pe Falsul Ciprian
+1
+falsul_found 1
+;;
+Vorbeste putin cu el
+1
+falsul_talked 1
+;;
+;;
+1
+Existenta mea e fara scop
+Exist doar ca sa se vada cum merge
+scrollul. :(	
+1
+OBJECTIVES:
+Da scroll, desi tot nu o sa termini questul.
+1
+scrolled 1
+;;
+;;

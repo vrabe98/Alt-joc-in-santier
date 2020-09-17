@@ -7,6 +7,8 @@ num_states
 STATE_id	(incremental, starts with 0, 0 being the entry point)
 num_options
 NPC_message
+Num_flags_set (mandatory)
+Quest_flags_list (name and counter, separated by newline)
 .
 .	list of dialogue options, in the format "TEXT \n next_state_id"
 .	if next_state_id==-1, the option will lead to exiting the dialogue
@@ -21,6 +23,8 @@ Falsul Ciprian
 0
 4
 Ceau
+1
+falsul_found 1
  Ceau, o, *insert titluri demonice, printre care si Jmekeru' *,
 prosterna-m-as in fata ochilor tai, izvoare ale Intunericului.	
 1
@@ -36,6 +40,8 @@ Ok. Ceau.
 1
 1
 Cf
+1
+falsul_talked 1
  ...	
 -1
 ;;

@@ -11,3 +11,6 @@ String_ID String_Name
 8 Encyclopedia entry description
 9 Current song playing
 10 Current song time
+11 NPC HP
+12 MAINCHAR HP
+13 Quest info

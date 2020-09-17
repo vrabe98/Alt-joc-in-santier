@@ -5,8 +5,9 @@ NPC_name
 NPC_description (multiple lines, ended with a single TAB)
 NPC_STR NPC_DEX NPC_CON NPC_CHA
 NPC_money	(not really used now)
+NPC_items (a set of items that are to be directly equipped by the NPC, represented by the item db id, and terminated with a ;)
 MAP_id POSX POSY
-TEX_filename
+TEX_filename	(the NPC dialogue texture file will have "_diag" appended to the file name specified here)
 ;;
 ...
 ;;
@@ -21,6 +22,7 @@ Trebuia sa inchei
 la "sa fie"...	
 10 10 10 10
 1
+13 ;
 1 27 12
 diavol.png
 ;;

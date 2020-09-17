@@ -13,6 +13,8 @@ Bumazhnye Tigry - Mechty.wav
 Folcvagen - Fotoaparat.wav
 Frankie Knuckles - Your Love.wav
 Grup Stereo - Plopi Impari.wav
+Hej Dzhud Struktura - The Sky Is Blue.wav
+Holodnyi Dozhdy - Ostrov.wav
 Hugo-Ugo - Lyubov' eto moye bol'shoe Solnce.wav
 Hugo-Ugo - Mne tak strashno.wav
 Hugo-Ugo - Motoroller.wav
@@ -22,12 +24,14 @@ Hum- The Scientists.wav
 Jack Stauber - Beird.wav
 Jack Stauber - It's Alright.wav
 Jack Stauber - Oh Klahoma.wav
+Joy Division - Dead Souls (Live).wav
 Kino - Gruppa Krovi.wav
 Kino - Pesnya bez slov.wav
 Kino - Ran'she v tvoih glazah.wav
 Kino - Spokoynaya noch'.wav
 Kino - Skazka.wav
 Kino - Zvezda po imeni Solnce.wav
+Les Visiteurs Du Soir - Je t'ecris d'un pays.wav
 Maksim Kotomtsev - Na Zholtoy Doroge.wav
 Molchat Doma - Na Dne.wav
 Molchat Doma - Prognoz.wav
@@ -36,6 +40,10 @@ New Order - Blue Monday.wav
 otmena - holod.wav
 Palms Trax - Equation.wav
 Slint - Good Morning, Captain.wav
+Slowdive - Hide Yer Eyes.wav
+Slowdive - Sleep.wav
+Slowdive - So Tired.wav
+Slowdive - Summer Daze.wav
 teen suicide - the same things happening to me all the time even in my dreams.wav
 The Serfs - Beauty Contest.wav
 The Serfs - Perverted disco.wav

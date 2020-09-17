@@ -3,6 +3,7 @@ Type	(Weapon/Armor/Generic/Shield)
 Item_ID (incremental,from 0 - also constitutes the encyclopedia entry code)
 Price	(floating point)
 Equip slot (only for non-generic items; if weapon: also two-handed, next to equip slot; 1 if twohanded, 0 if onehanded; equip slot is always RIGHT HAND-5, one-handed weapons can be equipped on the right hand as well though)
+Dual_wield (0/1, only for weapons)
 Weight
 Stat (only for non-generic items)
 Name
@@ -19,7 +20,7 @@ RHAND 5				//Main hand slot
 LHAND 6				//Shield/Offhand weapon slot
 NONEQUIPABLE -1			//Items that can't be equipped, no need to use this here, since it is implicit
 ;;
-13
+14
 ;;
 Generic
 0
@@ -43,8 +44,9 @@ Weapon
 2
 100.0
 5
+0
 10
-1000
+60
 Sfintele Greutati
 Sfintele Greutati, fara cusur, ale caror
 origine este necunoscuta pana si pentru
@@ -153,8 +155,9 @@ Weapon
 7
 100.0
 5
+1
 10
-1000
+70
 Marile Greutati
 Existenta acestora este pusa cumva sub semnul 
 intrebarii de catre teologi, patologic de sceptici 
@@ -184,7 +187,7 @@ Armor
 100.0
 0
 10
-10
+20
 Tricoul cu Pecetile Sfinte
 Acest tricou este intotdeauna insotit de catre o
 cravata sfanta, cu rolul de a ascunde Axa Centrala
@@ -209,7 +212,7 @@ Armor
 100.0
 3
 10
-100
+40
 Ceasul Eternitatii
 In iconografie, Domnul apare intotdeauna purtand asupra
 Sa un obiect asemanator cu un ceas de-al muritorilor
@@ -229,7 +232,7 @@ Armor
 100.0
 2
 10
-100
+40
 Pantalonii celui Dintai Antrenor
 Domnul, adeseori denumit si Cel Dintai Antrenor
 sau Adevaratul Ciprian (in opozitie cu Falsul Ciprian,
@@ -249,7 +252,7 @@ Armor
 100.0
 4
 10
-100
+40
 Sandalele Inaltarii Sufletului
 Aceste obiecte sfinte sunt deseori invocate de catre
 credinciosi in propriile rugaciuni, datorita asocierii
@@ -294,4 +297,40 @@ prezinta ca fiind creat insusi de Domnul, din
 infinita sa putere, pentru a-I servi ulterior,
 in Razboiul Final dat contra Falsului Ciprian.	
 pre.png
+;;
+Weapon
+13
+100.0
+5
+1
+10
+60
+Camera foto a Falsului Ciprian
+Falsul Ciprian este deseori infatisat in iconografie
+avand asupra sa o camera fotografica, folosita pentru
+a spiona trupele ceresti ale Domnului. Intr-una din
+viziunile ispititoare ale Sfantului Ionut Ciuperca,
+Falsul Ciprian i-a aparut acestuia in forma sa
+umanoida, incercand astfel sa isi ascunda adevarata
+sa natura demonica. De altfel, stim din deja celebra
+viziune a Sfantului Fara de Nume, viziune a carei
+relatare a fost transmisa doar pe cale orala si
+pe care nu o pot transcrie aici, faptul ca nu putem
+intelege infatisarea adevarata a demonilor, acestia
+trebuind sa preia diverse alte forme care sa mascheze
+adevarata lor natura. In viziunea Sfantului
+Ionut Ciuperca, Falsul Ciprian a folosit Camera
+atat pentru a spiona trupele ceresti, cat si pentru
+a fura bucati din creatia divina prin capturarea lor
+sub forma unei imagini pe o hartie ciudata, imagine
+care distorsiona creatia divina si din care
+Sfantul Augustin Antrenorul presupune ca nu se mai poate
+restaura portiunea de Creatie capturata. Teologii
+interpreteaza acest act al capturarii si distorsionarii
+Creatiei ca pe o incercare a Falsului Ciprian de a
+o reduce la nimic, de a o ingloba in Materie Demonica,
+capturand-o si inrobind-o. Lasat fara Creatie, Domnu
+ar fi nevoit sa cedeze, acesta fiind singurul mod in 
+care Falsul Ciprian ar putea castiga Razboiul Sfant.	
+cameracipri.png
 ;;
