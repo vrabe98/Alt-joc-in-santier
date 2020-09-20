@@ -4,17 +4,34 @@
 #include <fstream>
 #include <string>
 #include <list>
+#include "Button.h"
 #include "Encyclopedia.h"
 #include "Inventory.h"
 #include "RoundedRectangle.h"
 #include "DialogueState.h"
+#include "PictureBox.h"
 
+#define PRELIMINARY -1
 #define NPC_MSG 0
 #define MAINCHAR_MSG 1
+
+#define NPC_DIAG 0
+#define VENDOR_DIAG 1
 
 #define MAX_SHOWN_MESSAGES 3
 
 #define LIGHTEN_FACTOR 40
+
+#define MAINCHAROPTH 50
+#define SPACING 10
+#define YOFFSET 15
+
+#define CHARNAMEW 100
+#define CHARNAMEH 25
+
+#define TRADE_SCREEN 10
+
+class Character;
 
 class DialogueMessage:public sf::Drawable {
 protected:
@@ -34,7 +51,7 @@ public:
 		}
 	}
 	virtual ~DialogueMessage(){}
-	int MouseWithinBounds(sf::Vector2i pos);
+	bool MouseWithinBounds(sf::Vector2i pos);
 	virtual void Draw(sf::RenderTarget& target,int radius,sf::Vector2f pos,sf::Vector2f size,int offset)=0;
 	virtual DialogueState* Action() = 0;
 };
@@ -81,56 +98,28 @@ public:
 	}
 	void Draw(sf::RenderTarget& target,int radius, sf::Vector2f pos, sf::Vector2f size,int offset) override;
 	DialogueState* Action() override {
+		if(next!=nullptr)next->Set_flags();
 		return next;
 	}
 };
 
 class DialogueBox {
-	int active, state, offset;
+	bool active;
+	short int state, offset;
+	Button dialogue, combat, trade;
+	PictureBox picbox;
+	sf::Text char_name;
 	NPCMessage npc_msg;
 	std::list<MaincharMessage*> char_msgs;
 	RoundedRectangle box;
 public:
-	DialogueBox() {
-		state = NPC_MSG;
-		offset = 0;
-		active = -1;
-		box = RoundedRectangle(25,sf::Vector2f(75,493),sf::Vector2f(700,200));
-	}
+	DialogueBox() {};
+	void Create();
+	Character* Get_npc();
 	int Size() { return char_msgs.size(); }
-	void Draw(sf::RenderTarget& target) {
-		target.draw(box);
-		if (this->state == NPC_MSG) {
-			npc_msg.Draw(target, box.Radius(), box.Position(), box.Size(),offset);
-		}
-		else if (this->state == MAINCHAR_MSG) {
-			int msgs = 0;
-			std::list<MaincharMessage*>::iterator i = char_msgs.begin();
-			std::advance(i, offset);
-			while (i != char_msgs.end()&&msgs!=MAX_SHOWN_MESSAGES) {
-				(*i)->Draw(target, box.Radius(), box.Position(), box.Size(), offset);
-				msgs++;
-				i++;
-			}
-		}
-
-	}
-	void LMB_Press(sf::Vector2i pos) {
-		if (MouseWithinBounds(pos)) {
-			if (state == MAINCHAR_MSG) {
-				DialogueState* next = nullptr;
-				for (std::list<MaincharMessage*>::iterator i = char_msgs.begin(); i != char_msgs.end(); i++) {
-					if ((*i)->MouseWithinBounds(pos)) {
-						next = (*i)->Action();
-						if (next == nullptr) Activate_deactivate();
-						else Enter_dialogue(next, npc_msg.Npc_id());
-						return;
-					}
-				}
-			}
-			else if (state == NPC_MSG) Change_state();
-		}
-	}
+	void Draw(sf::RenderTarget& target,int code);
+	void LMB_Press(sf::Vector2i pos);
+	void LMB_Released(sf::Vector2i pos);
 	void Wheel_scroll(int delta) {
 		offset += delta;
 		if (offset < 0) offset = 0;
@@ -150,18 +139,17 @@ public:
 			}
 		}
 	}
-	void Enter_dialogue(DialogueState* entry,int npc_id);
-	int MouseWithinBounds(sf::Vector2i pos) {
+	void Enter_dialogue(DialogueState* entry,int npc_id,int state);
+	bool MouseWithinBounds(sf::Vector2i pos) {
 		return box.MouseWithinBounds(pos);
 	}
-	int Active() { return active+1; }
+	bool Active() { return active; }
 	void Change_state() {
 		offset = 0;
 		state=(state+1)%2;
 	}
 	void Activate_deactivate() {
-		active = -1 * active;
+		active = !active;
 		offset = 0;
 	}
 };
-

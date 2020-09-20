@@ -1,4 +1,6 @@
+Quest type (Regular/Chain)
 Quest ID	(incremental, from 0)
+Next_quest_id (for chain quest only)
 Quest name
 Quest description	(can be multi-line, ended by a single TAB)
 Number of objective
@@ -10,7 +12,9 @@ OBJECTIVES: (mandatory string)
 	Next objective...
 	;;
 ;;
+Chain
 0
+2
 Falsul Ciprian iese la Lumina
 Falsul Ciprian, Marele Rival, fie-i existenta
 cat mai scurta si plina de agonie, a iesit
@@ -31,6 +35,7 @@ Vorbeste putin cu el
 falsul_talked 1
 ;;
 ;;
+Regular
 1
 Existenta mea e fara scop
 Exist doar ca sa se vada cum merge
@@ -40,5 +45,18 @@ OBJECTIVES:
 Da scroll, desi tot nu o sa termini questul.
 1
 scrolled 1
+;;
+;;
+Regular
+2
+Falsul Ciprian trebuie caftit
+Se pare ca Falsul Ciprian a invadat
+"Lumea fara Proteine". El trebuie neaparat
+invins, cat mai rapid cu putinta.	
+1
+OBJECTIVES:
+Bate-l pe Falsul Ciprian
+1
+falsul_dead 1
 ;;
 ;;

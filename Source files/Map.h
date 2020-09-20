@@ -20,7 +20,7 @@ class Map:public sf::Drawable
 	char* map_arr;
 	sf::VertexArray vertices;
 	std::list<Connection> conns;
-	int dim_x, dim_y;
+	short int dim_x, dim_y;
 	std::string name;
 	std::string description;
 	std::list<Object*> objects;

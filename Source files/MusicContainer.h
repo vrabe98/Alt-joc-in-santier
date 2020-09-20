@@ -10,7 +10,6 @@
 #define CURRENT_SONG 9
 #define PLAY_TIME 10
 
-
 #define VOLW 200
 #define VOLH 25
 
@@ -46,7 +45,7 @@ class VolumeBar : public sf::Drawable {
 	sf::VertexArray bounding_box, volume_box;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates state) const;
 public:
-	int MouseWithinBounds(sf::Vector2i pos);
+	bool MouseWithinBounds(sf::Vector2i pos);
 	float Percent_click(sf::Vector2i pos) {
 		return ((float)pos.x - VOLX) / VOLW * 100;
 	}
@@ -62,7 +61,7 @@ class ProgressBar :public sf::Drawable {
 	sf::VertexArray bounding_box, progress_box;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates state) const;
 public:
-	int MouseWithinBounds(sf::Vector2i pos);
+	bool MouseWithinBounds(sf::Vector2i pos);
 	float Percent_click(sf::Vector2i pos) {
 		return ((float)pos.x - PROGX) / PROGW*100;
 	}
@@ -75,38 +74,39 @@ public:
 };
 
 class Song :public sf::Drawable {
-	int order, highlighted, code;
+	bool highlighted;
+	short int order, code;
 	sf::Text name_text;
 	sf::Text order_text;
 	sf::VertexArray bounding_box;
 	std::string name, description;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates state) const;
 public:
-	int MouseWithinBounds(sf::Vector2i pos);
+	bool MouseWithinBounds(sf::Vector2i pos);
 	std::string Name() { return name; }
-	int Order() { return order; }
-	int Is_highlighted() { return highlighted + 1; }
-	void Change_state(int action);
-	void Draw(sf::RenderTarget& target, int offset);
+	short int Order() { return order; }
+	bool Is_highlighted() { return highlighted; }
+	void Change_state(short int action);
+	void Draw(sf::RenderTarget& target, short int offset);
 	void Init();
 	void Update_order(int neword) {
 		order = neword;
 	}
-	Song(std::string name,int num) {
+	Song(std::string name,short int num) {
 		this->name = name;
 		this->order = num;
 		bounding_box.setPrimitiveType(sf::Quads);
 		bounding_box.resize(4);
 		sf::Vertex* quad = &bounding_box[0];
 		for (int i = 0; i < 4; i++) {
-			quad[i].color = sf::Color(50, 50, 50);
+			quad[i].color = sf::Color(50, 50, 50,200);
 		}
-		highlighted = -1;
+		highlighted = false;
 	}
 };
 
 class MusicContainer :public sf::Drawable {
-	int offset, current_song_order;
+	short int offset, current_song_order;
 	std::thread* play_time_calc;
 	std::list<Song*> songs;
 	sf::VertexArray bounding_box;
@@ -138,7 +138,7 @@ public:
 	}
 	sf::Music* Get_music() { return &music; }
 	void Begin_timecalc();
-	int MouseWithinBounds(sf::Vector2i pos);
+	bool MouseWithinBounds(sf::Vector2i pos);
 	void Add_song(std::string name);
 	int Size() { return songs.size(); }
 	void LMB_Pressed(sf::Vector2i pos);
@@ -158,4 +158,3 @@ public:
 	}
 	MusicContainer();
 };
-

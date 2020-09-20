@@ -25,7 +25,7 @@ class Item{
 protected:
 	std::string name, description;
 	sf::Texture texture;
-	int weight, equip_slot,id;
+	short int weight, equip_slot,id;
 	float price;
 	std::string Slot_name() {
 		switch (equip_slot) {
@@ -43,29 +43,33 @@ protected:
 			break;
 		case LHAND: return "Left hand";
 			break;
+		default: return "Nonequipable";
+			break;
 		}
 	}
 public:
 	virtual ~Item(){}
-	int Id() { return id; }
+	short int Id() { return id; }
 	float Price() { return price; }
-	int Equip_slot() { return equip_slot; }
+	short int Equip_slot() { return equip_slot; }
 	std::string Name() { return name; }
 	std::string Description() { return description; }
 	sf::Texture* Get_texture() { return &texture; }
 	virtual std::string Typestr() = 0;
 	virtual std::string Info()=0;
+	virtual bool TwoHanded() = 0;
 	virtual float _Damage() = 0;
 	virtual int _Armor()=0;
-	virtual int Type() = 0;
+	virtual short int Type() = 0;
 	virtual void Load(std::ifstream&)=0;
 };
 
 class Generic :public Item {
 public:
+	bool TwoHanded() { return false; }
 	int _Armor() override { return 0; }
 	float _Damage() override { return 0; }
-	int Type() override { return GENERIC; }
+	short int Type() override { return GENERIC; }
 	std::string Typestr() override { return "\n\nGeneric item"; }
 	std::string Info() override;
 	void Load(std::ifstream& f) override;
@@ -73,10 +77,12 @@ public:
 
 class Weapon :public Item {
 	float damage;
+	bool two_handed;
 public:
+	bool TwoHanded() { return two_handed; }
 	int _Armor() override { return 0; }
 	float _Damage() override { return damage; }
-	int Type() override { return WEAPON; }
+	short int Type() override { return WEAPON; }
 	std::string Typestr() override { return "\n\nWeapon"; }
 	std::string Info() override;
 	void Load(std::ifstream& f) override;
@@ -85,9 +91,10 @@ public:
 class Armor :public Item {
 	int armor;
 public:
+	bool TwoHanded() { return false; }
 	int _Armor() override { return armor; }
 	float _Damage() override { return 0; }
-	int Type() override { return ARMOR; }
+	short int Type() override { return ARMOR; }
 	std::string Typestr() override { return "\n\nArmor"; }
 	std::string Info() override ;
 	void Load(std::ifstream& f) override;
@@ -95,9 +102,10 @@ public:
 
 class Shield :public Item {
 public:
+	bool TwoHanded() { return false; }
 	int _Armor() override { return 0; }
 	float _Damage() override { return 0; }
-	int Type() override { return SHIELD; }
+	short int Type() override { return SHIELD; }
 	std::string Typestr() override { return "\n\nShield"; }
 	std::string Info() override;
 	void Load(std::ifstream& f) override;

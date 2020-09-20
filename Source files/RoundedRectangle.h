@@ -21,7 +21,7 @@ public:
 		return sf::Vector2f(back.getPoint(2).x-back.getPoint(7).x, back.getPoint(4).y-back.getPoint(0).y);
 	}
 	float Radius() { return corners[0].getRadius(); }
-	int MouseWithinBounds(sf::Vector2i pos);
+	bool MouseWithinBounds(sf::Vector2i pos);
 	RoundedRectangle(){}
 	RoundedRectangle(float radius,sf::Vector2f position,sf::Vector2f size) {
 		back.setPointCount(8);
@@ -48,4 +48,3 @@ public:
 		back.setFillColor(sf::Color(50, 50, 50));
 	}
 };
-

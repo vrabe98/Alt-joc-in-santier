@@ -1,8 +1,4 @@
 #include "Map.h"
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <Windows.h>
 #include "Game.h"
 
 #define TILEW 25

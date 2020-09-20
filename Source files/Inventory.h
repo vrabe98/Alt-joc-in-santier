@@ -49,7 +49,7 @@ public:
 	Item* Get_item() {
 		return item;
 	}
-	int MouseWithinBounds(sf::Vector2i pos);
+	bool MouseWithinBounds(sf::Vector2i pos);
 	int Is_highlighted() { return highlighted + 1; }
 	void Change_state(int action);
 	void Draw(sf::RenderTarget& target, int offset);
@@ -63,7 +63,7 @@ public:
 		bounding_box.resize(4);
 		sf::Vertex* quad = &bounding_box[0];
 		for (int i = 0; i < 4; i++) {
-			quad[i].color = sf::Color(50, 50, 50);
+			quad[i].color = sf::Color(50, 50, 50,200);
 		}
 		img_vertices.setPrimitiveType(sf::Quads);
 		img_vertices.resize(4);
@@ -83,7 +83,7 @@ class Inventory:public sf::Drawable{
 	sf::VertexArray bounding_box;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates state) const;
 public:
-	int MouseWithinBounds(sf::Vector2i pos);
+	bool MouseWithinBounds(sf::Vector2i pos);
 	void Remove_item(int index) {
 		int ind = 0;
 		std::list<InventorySlot*>::iterator i = slots.begin();
@@ -127,17 +127,19 @@ public:
 		sf::Vertex* quad = &bounding_box[0];
 		if (type == PLAYER_INV) {
 			quad[0].position = sf::Vector2f(XPADDING, YPADDING);
-			quad[1].position = sf::Vector2f(XPADDING + INVW, XPADDING);
+			quad[1].position = sf::Vector2f(XPADDING + INVW, YPADDING);
 			quad[2].position = sf::Vector2f(XPADDING + INVW, YPADDING + INVH);
 			quad[3].position = sf::Vector2f(XPADDING, YPADDING + INVH);
 		}
 		else if (type == NONPLAYER_INV) {
 			quad[0].position = sf::Vector2f(XPADDING+HALFW, YPADDING);
-			quad[1].position = sf::Vector2f(XPADDING+HALFW + INVW, XPADDING);
+			quad[1].position = sf::Vector2f(XPADDING+HALFW + INVW, YPADDING);
 			quad[2].position = sf::Vector2f(XPADDING+HALFW + INVW, YPADDING + INVH);
 			quad[3].position = sf::Vector2f(XPADDING+HALFW, YPADDING + INVH);
+		}
+		for (int i = 0; i < 4; i++) {
+			quad[i].color = sf::Color(50, 50, 50, 200);
 		}
 		offset = 0;
 	}
 };
-

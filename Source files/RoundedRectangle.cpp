@@ -1,7 +1,6 @@
 #include "RoundedRectangle.h"
-#include <math.h>
 
-int RoundedRectangle::MouseWithinBounds(sf::Vector2i pos){
+bool RoundedRectangle::MouseWithinBounds(sf::Vector2i pos){
 	sf::Vector2f position(back.getPosition());
 	sf::Vector2f size(back.getLocalBounds().width,back.getLocalBounds().height);
 	sf::Vector2f centerpos(position.x + size.x / 2, position.y + size.y / 2);
@@ -23,8 +22,7 @@ int RoundedRectangle::MouseWithinBounds(sf::Vector2i pos){
 			sf::Vector2f distvect(pos.x - (corners[3].getPosition().x+r), pos.y - (corners[3].getPosition().y+r));
 			dist = sqrt(distvect.x * distvect.x + distvect.y * distvect.y);
 		}
-		if (dist > r) return 0;
-		else return 1;
+		return (dist <= r);
 	}
 	else return 0;
 }

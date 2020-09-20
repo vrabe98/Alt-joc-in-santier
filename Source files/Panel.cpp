@@ -1,7 +1,5 @@
 #include "Panel.h"
 #include <fstream>
-#include <iostream>
-#include <string>
 
 void Panel::draw(sf::RenderTarget& target, sf::RenderStates state) const {
 	target.draw(background);

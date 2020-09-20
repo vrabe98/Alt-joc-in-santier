@@ -1,8 +1,6 @@
 #include "GameState.h"
 #include <fstream>
 #include <iostream>
-#include <string>
-#include <Windows.h>
 
 void GameState::Load(std::ifstream& f, int num_panels, int num_buttons,int num_textboxes,sf::Font& font) {
 	std::string aux;
@@ -20,7 +18,7 @@ void GameState::Load(std::ifstream& f, int num_panels, int num_buttons,int num_t
 		exit(-3);
 	}
 	for (int i = 0; i < num_buttons; i++) {
-		Button* buton=new Button(f,font);
+		Button* buton=new Button(f);
 		butoane.push_back(buton);
 	}
 	f >> aux;

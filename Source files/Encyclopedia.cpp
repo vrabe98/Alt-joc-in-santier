@@ -9,25 +9,28 @@ void Entry::draw(sf::RenderTarget& target, sf::RenderStates state) const{
 	target.draw(order_text);
 }
 
-int Entry::MouseWithinBounds(sf::Vector2i pos)
+bool Entry::MouseWithinBounds(sf::Vector2i pos)
 {
 	return (bounding_box[0].position.x <= (float)pos.x) && ((float)pos.x <= bounding_box[1].position.x) && (bounding_box[0].position.y <= (float)pos.y) && ((float)pos.y <= bounding_box[3].position.y);
 }
 
-void Entry::Change_state(int action){
+void Entry::Change_state(short int action){
+	short int modif;
 	sf::Color color = bounding_box[0].color;
-	highlighted = -1 * highlighted;
-	color.r += highlighted * LIGHTEN_FACTOR;
-	color.g += highlighted * LIGHTEN_FACTOR;
-	color.b += highlighted * LIGHTEN_FACTOR;
+	highlighted = !highlighted;
+	highlighted == false ? modif = -1 : modif = 1;
+	color.r += modif * LIGHTEN_FACTOR;
+	color.g += modif * LIGHTEN_FACTOR;
+	color.b += modif * LIGHTEN_FACTOR;
+	color.a = 200;
 	for (int i = 0; i < 4; i++) {
 		bounding_box[i].color = color;
 	}
-	if (highlighted == 1) game->Update_string(ENCYCLO_DESCR, &description);
+	if (highlighted) game->Update_string(ENCYCLO_DESCR, &description);
 	else if (action == OUTOFBOX) game->Update_string(ENCYCLO_DESCR, &std::string(""));
 }
 
-void Entry::Draw(sf::RenderTarget& target, int offset){
+void Entry::Draw(sf::RenderTarget& target, short int offset){
 	double coeff = 141.0 / 72.0, font_size;
 	sf::Vertex* quad = &bounding_box[0];
 
@@ -75,7 +78,7 @@ void Encyclopedia::draw(sf::RenderTarget& target, sf::RenderStates state) const{
 	}
 }
 
-int Encyclopedia::MouseWithinBounds(sf::Vector2i pos)
+bool Encyclopedia::MouseWithinBounds(sf::Vector2i pos)
 {
 	return (bounding_box[0].position.x <= (float)pos.x) && ((float)pos.x <= bounding_box[1].position.x) && (bounding_box[0].position.y <= (float)pos.y) && ((float)pos.y <= bounding_box[3].position.y);
 }
@@ -93,7 +96,7 @@ void Encyclopedia::LMB_Pressed(sf::Vector2i pos){
 	}
 }
 
-void Encyclopedia::Try_add(std::string name, std::string description, int code){
+void Encyclopedia::Try_add(std::string name, std::string description, short int code){
 	Entry* new_entry = nullptr;
 	for (std::list<Entry*>::iterator i = entries.begin(); i != entries.end(); i++) {
 		if ((*i)->Id() == code) return;
@@ -103,7 +106,7 @@ void Encyclopedia::Try_add(std::string name, std::string description, int code){
 	entries.push_back(new_entry);
 }
 
-void Encyclopedia::Update(std::string name, std::string description, int code){
+void Encyclopedia::Update(std::string name, std::string description, short int code){
 	Entry* new_entry = nullptr;
 	for (std::list<Entry*>::iterator i = entries.begin(); i != entries.end(); i++) {
 		if ((*i)->Id() == code) {

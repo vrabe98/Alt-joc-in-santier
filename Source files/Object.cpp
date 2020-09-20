@@ -1,7 +1,5 @@
 #include "Object.h"
 #include "Game.h"
-#include "Map.h"
-#include <string>
 
 #define TILEW 25
 #define TILEH 25

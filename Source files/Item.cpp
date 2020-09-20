@@ -10,7 +10,11 @@ std::string Generic::Info()
 
 std::string Weapon::Info()
 {
-	return name +Typestr()+"\nSlot: "+Slot_name()+"\nDamage: " + std::to_string(damage)+ "\nWeight: " + std::to_string(weight) + "\nPrice: " + std::to_string(price);
+	std::string info= name + Typestr() + "\nSlot: " + Slot_name();
+	if (two_handed) info += "\nTwo handed";
+	else info += "\nSingle handed";
+	info+="\nDamage: " + std::to_string(damage) + "\nWeight: " + std::to_string(weight) + "\nPrice: " + std::to_string(price);
+	return info;
 }
 
 std::string Armor::Info()
@@ -43,7 +47,7 @@ void Generic::Load(std::ifstream& f){
 void Weapon::Load(std::ifstream& f){
 	std::string aux;
 	f >> id;
-	f >> price >> equip_slot>>weight>>damage;
+	f >> price >> equip_slot>>two_handed>>weight>>damage;
 	f.ignore();
 	std::getline(f, name, '\n');
 	std::getline(f, description, '\t');

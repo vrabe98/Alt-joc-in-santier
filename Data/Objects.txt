@@ -77,7 +77,7 @@ Spirituale".
 ;;
 Container
 13 22
-0 1 2 3 ;
+0 1 2 ;
 cutie.png
 1
 Sfanta Cutie

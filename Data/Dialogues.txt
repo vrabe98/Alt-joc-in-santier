@@ -46,3 +46,15 @@ falsul_talked 1
 -1
 ;;
 ;;
+2
+Ionut
+1
+;;
+0
+1
+Baiatu, tigari vrei?
+0
+ Nu, ma, lasa-ma-n pace.	
+-1
+;;
+;;

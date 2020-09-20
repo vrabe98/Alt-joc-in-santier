@@ -17,7 +17,7 @@ public:
 	virtual void Update() = 0;
 	int Is_highlighted() { return highlighted + 1; }
 	void Change_state();
-	int MouseWithinBounds(sf::Vector2i);
+	bool MouseWithinBounds(sf::Vector2i);
 	inline std::string GetText() {
 		return text.getString();
 	}

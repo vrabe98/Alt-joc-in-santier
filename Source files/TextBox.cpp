@@ -1,9 +1,4 @@
 #include "TextBox.h"
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <string.h>
 #include "Game.h"
 
 #define LIGHTEN_FACTOR 40
@@ -19,6 +14,7 @@ void TextBox::Append_char(char c) {
 	text.setString(str);
 	font_size = width * coeff / (str.length() + 4.0f);
 	if (font_size >= height) font_size = height;
+	if (font_size>= 25.0) font_size=25.0;
 	text.setCharacterSize(font_size);
 	text.setPosition(corners[0].position.x + (width - text.getLocalBounds().width) / 2, corners[0].position.y + (height- text.getLocalBounds().height )/ 2-text.getLocalBounds().top);
 }
@@ -28,7 +24,7 @@ void TextBox::draw(sf::RenderTarget& target, sf::RenderStates state) const{
 	target.draw(text);
 }
 
-int TextBox::MouseWithinBounds(sf::Vector2i pos) {
+bool TextBox::MouseWithinBounds(sf::Vector2i pos) {
 	return (corners[0].position.x <= (float)pos.x) && ((float)pos.x <= corners[1].position.x) && (corners[0].position.y <= (float)pos.y) && ((float)pos.y <= corners[3].position.y);
 }
 
@@ -39,6 +35,7 @@ void TextBox::Change_state()
 	color.r += highlighted* LIGHTEN_FACTOR;
 	color.g += highlighted*LIGHTEN_FACTOR;
 	color.b += highlighted*LIGHTEN_FACTOR;
+	color.a = 200;
 	for (int i = 0; i < 4; i++) {
 		corners[i].color = color;
 	}
@@ -79,6 +76,7 @@ void OutputBox::Update(){
 		font_size = (height) /num_words - text.getLineSpacing()*(num_words-4);
 		text.setCharacterSize(font_size);
 	}
+	if (text.getCharacterSize() >= 25.0) text.setCharacterSize(25.0);
 	text.setPosition(corners[0].position.x + (width - text.getLocalBounds().width) / 2, corners[0].position.y + (height - text.getLocalBounds().height) / 2-text.getLocalBounds().top);
 }
 
@@ -95,6 +93,7 @@ TextBox::TextBox(std::ifstream& file, sf::Font& font) {
 	colr.r = r;
 	colr.g = g;
 	colr.b = b;
+	colr.a = 200;
 	corners[0].position = sf::Vector2f(posx, posy);
 	corners[1].position = sf::Vector2f(posx + width, posy);
 	corners[2].position = sf::Vector2f(posx + width, posy + height);

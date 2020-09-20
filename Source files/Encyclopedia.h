@@ -26,25 +26,26 @@
 #define SELECTDESELECT 1
 
 class Entry:public sf::Drawable {
-	int order, highlighted, code;
+	bool highlighted;
+	short int order, code;
 	sf::Text name_text;
 	sf::Text order_text;
 	sf::VertexArray bounding_box;
 	std::string name, description;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates state) const;
 public:
-	int MouseWithinBounds(sf::Vector2i pos);
+	bool MouseWithinBounds(sf::Vector2i pos);
 	int Order() { return order; }
-	int Is_highlighted() { return highlighted + 1; }
-	void Change_state(int action);
-	void Draw(sf::RenderTarget& target, int offset);
+	bool Is_highlighted() { return highlighted; }
+	void Change_state(short int action);
+	void Draw(sf::RenderTarget& target, short int offset);
 	void Update(std::string name, std::string description);
-	void Update_order(int neword) {
+	void Update_order(short int neword) {
 		order = neword;
 	}
 	int Id() { return code; }
 	void Init();
-	Entry(std::string name, std::string description, int num,int code) {
+	Entry(std::string name, std::string description, short int num,short int code) {
 		this->name = name;
 		this->description = name+"\n\n"+description;
 		this->code = code;
@@ -53,24 +54,24 @@ public:
 		bounding_box.resize(4);
 		sf::Vertex* quad = &bounding_box[0];
 		for (int i = 0; i < 4; i++) {
-			quad[i].color = sf::Color(50, 50, 50);
+			quad[i].color = sf::Color(50, 50, 50,200);
 		}
-		highlighted = -1;
+		highlighted = false;
 	}
 };
 
 class Encyclopedia:public sf::Drawable{
-	int offset;
+	short int offset;
 	std::list<Entry*> entries;
 	sf::VertexArray bounding_box;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates state) const;
 public:
-	int MouseWithinBounds(sf::Vector2i pos);
-	int Size() { return entries.size(); }
+	bool MouseWithinBounds(sf::Vector2i pos);
+	short int Size() { return entries.size(); }
 	void LMB_Pressed(sf::Vector2i pos);
-	void Try_add(std::string name, std::string description, int code);
-	void Update(std::string name, std::string description, int code);
-	void Wheel_scroll(int delta) {
+	void Try_add(std::string name, std::string description, short int code);
+	void Update(std::string name, std::string description, short int code);
+	void Wheel_scroll(short int delta) {
 		offset += delta;
 		if (offset < 0) offset = 0;
 		else if (offset >= Size()) offset = Size() - 1;
@@ -91,4 +92,3 @@ public:
 		offset = 0;
 	}
 };
-

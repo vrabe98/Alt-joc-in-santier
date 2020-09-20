@@ -29,7 +29,7 @@ void InventorySlot::UpdateOrder(int neword){
 	order = neword;
 }
 
-int InventorySlot::MouseWithinBounds(sf::Vector2i pos){
+bool InventorySlot::MouseWithinBounds(sf::Vector2i pos){
 	return (bounding_box[0].position.x <= (float)pos.x) && ((float)pos.x <= bounding_box[1].position.x) && (bounding_box[0].position.y <= (float)pos.y) && ((float)pos.y <= bounding_box[3].position.y);
 }
 
@@ -39,6 +39,7 @@ void InventorySlot::Change_state(int action){
 	color.r += highlighted * LIGHTEN_FACTOR;
 	color.g += highlighted * LIGHTEN_FACTOR;
 	color.b += highlighted * LIGHTEN_FACTOR;
+	color.a = 200;
 	for (int i = 0; i < 4; i++) {
 		bounding_box[i].color = color;
 	}
@@ -47,6 +48,7 @@ void InventorySlot::Change_state(int action){
 }
 
 void InventorySlot::Draw(sf::RenderTarget& target, int offset){
+	sf::Vertex* quad;
 	double coeff = 141.0 / 72.0, font_size;
 
 	img_vertices.setPrimitiveType(sf::Quads);
@@ -63,7 +65,7 @@ void InventorySlot::Draw(sf::RenderTarget& target, int offset){
 	name_text.setCharacterSize(font_size);
 
 	if (type == PLAYER_INV) {
-		sf::Vertex* quad = &bounding_box[0];
+		quad = &bounding_box[0];
 		order_text.setPosition(XPADDING + (NUMW - order_text.getLocalBounds().width) / 2, YPADDING + (order - offset) * NUMH + (NUMH - order_text.getLocalBounds().height) / 2 - order_text.getLocalBounds().top);
 		name_text.setPosition(XPADDING + NUMW + IMGW + (NAMEW - name_text.getLocalBounds().width) / 2, YPADDING + (order - offset) * NAMEH + (NAMEH - name_text.getLocalBounds().height) / 2 - name_text.getLocalBounds().top);
 		quad[0].position = sf::Vector2f(XPADDING, YPADDING + (order - offset) * NUMH);
@@ -78,7 +80,7 @@ void InventorySlot::Draw(sf::RenderTarget& target, int offset){
 		quad[3].position = sf::Vector2f(XPADDING + NUMW, YPADDING + (order - offset) * NUMH + IMGH);
 	}
 	else if(type==NONPLAYER_INV) {
-		sf::Vertex* quad = &bounding_box[0];
+		quad = &bounding_box[0];
 		order_text.setPosition(XPADDING+HALFW + (NUMW - order_text.getLocalBounds().width) / 2, YPADDING + (order - offset) * NUMH + (NUMH - order_text.getLocalBounds().height) / 2 - order_text.getLocalBounds().top);
 		name_text.setPosition(XPADDING+HALFW + NUMW + IMGW + (NAMEW - name_text.getLocalBounds().width) / 2, YPADDING + (order - offset) * NAMEH + (NAMEH - name_text.getLocalBounds().height) / 2 - name_text.getLocalBounds().top);
 		quad[0].position = sf::Vector2f(XPADDING+HALFW, YPADDING + (order - offset) * NUMH);
@@ -97,6 +99,7 @@ void InventorySlot::Draw(sf::RenderTarget& target, int offset){
 }
 
 void Inventory::draw(sf::RenderTarget& target, sf::RenderStates state) const{
+	target.draw(bounding_box);
 	for (std::list<InventorySlot*>::const_iterator i = slots.begin(); i != slots.end() && ((*i)->Order() - offset) < MAX_ITEMS_VIEW; i++) {
 		if ((*i)->Order() >= offset) {
 			(*i)->Draw(target, offset);
@@ -104,7 +107,7 @@ void Inventory::draw(sf::RenderTarget& target, sf::RenderStates state) const{
 	}
 }
 
-int Inventory::MouseWithinBounds(sf::Vector2i pos)
+bool Inventory::MouseWithinBounds(sf::Vector2i pos)
 {
     return (bounding_box[0].position.x <= (float)pos.x) && ((float)pos.x <= bounding_box[1].position.x) && (bounding_box[0].position.y <= (float)pos.y) && ((float)pos.y <= bounding_box[3].position.y);
 }

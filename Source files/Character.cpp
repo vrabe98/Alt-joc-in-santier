@@ -1,9 +1,5 @@
 #include "Character.h"
-#include <string>
-#include "Map.h"
 #include "Game.h"
-
-#define HP_BASE 100.0
 
 #define CHARACTER_ENCYCLOPEDIA_OFFSET 200
 #define MAP_ENCYCLOPEDIA_OFFSET 400
@@ -35,10 +31,58 @@
 #define NPC_ 4
 #define CNT_ 5
 
+#define ROLL_MIN 0
+#define ROLL_MAX 20
+
+#define TRADE_MESSAGE 14
+
 extern Game* game;
 
+
+int Roll_d20() {
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution <int> distrib(ROLL_MIN, ROLL_MAX);
+	return distrib(gen);
+}
+
+void Character::Defend(float dmg, Character* enemy, int riposte, int critted){
+	int block_roll;
+	float received_dmg=0;
+	block_roll = Roll_d20();
+	if (block_roll < 0) block_roll = 0;
+	else if (block_roll > 20) block_roll = 20;
+	if (!riposte) {
+		if (block_roll < 10 || critted) {
+			game->Get_combatscreen()->Add_entry(Name() + " nu o putut bloca lovitura lu " + enemy->Name()+".");
+			received_dmg = dmg;			//no damage blocked
+		}
+		else if (block_roll < 19) {
+			float block_mult = 1;
+			if (slots[LHAND]->Get_item() == nullptr && slots[RHAND] == nullptr) block_mult = 0.9; //using both fists to block
+			else if (slots[LHAND]->Get_item() != nullptr && slots[LHAND]->Get_item()->Type() == SHIELD) block_mult = 0.1;	//using shield
+			else if (slots[RHAND]->Get_item() != nullptr) block_mult = 0.4;	//using weapon
+			received_dmg = block_mult * dmg;
+		}
+		else if (block_roll < 21) {	//block_roll is 19 or 20
+			float block_mult = 1;
+			float riposte_dmg = Mainhand_Damage();
+			received_dmg = 0;
+			enemy->Defend(riposte_dmg, this, 1, 0);
+		}
+	}
+	else {
+		game->Get_combatscreen()->Add_entry(enemy->Name() + " il ia prin surprindere pe " + Name()+" cu o riposta EXCELENTA!");
+		received_dmg = dmg;
+	}
+	received_dmg -= Armor() / 20.0f;
+	if (received_dmg < 0) received_dmg = 0;
+	game->Get_combatscreen()->Add_entry(enemy->Name()+" i-o dat "+std::to_string((int)received_dmg)+" puncte de viata daune\nlu "+Name()+".");
+	hp -= (int)received_dmg;
+	HP_clamp();
+}
+
 void Character::RefreshHP() {			//function replenishes HP, by recalculating its value
-	float base = 100.0;
 	hp = HP_BASE * (1 + 0.05 * (strength - 10.0)) + constitution * 10.0;
 }
 
@@ -47,16 +91,63 @@ void Character::draw(sf::RenderTarget& target, sf::RenderStates state) const {
 	target.draw(sprite_vertices, state);
 }
 
-NPC::NPC(std::ifstream& f) {
-	std::string aux;
+bool Character::Try_update_currency(float diff)
+{
+	float old = currency;
+	currency += diff;
+	if (currency < 0) {
+		currency = old;
+		game->Update_string(TRADE_MESSAGE, &std::string("\""+std::to_string(abs((int)diff))+"!? Nu-ti permiti sa platesti\natata, maestre. Vino si tu\ncu niste bani ca nu dau\npe datorie.\""));
+		return false;
+	}
+	else game->Update_string(TRADE_MESSAGE, &std::string("\""+std::to_string(abs((int)diff))+"...Asa...\nBine, maestre, te mai asteptam\npe la noi\""));
+}
+
+int Character::Died()
+{
+	if (hp == 0) {
+		for (std::list<Quest_flag>::iterator i = set_flags.begin(); i != set_flags.end(); i++) {
+			game->Set_quest_flag(*i);
+			i = set_flags.erase(i);
+		}
+	}
+	return hp == 0;
+}
+
+NPC::NPC(std::ifstream& f,int id) {
+	std::string aux, aux2;
+	int num_flags;
 	name = new std::string();
-	f >> id;
+	this->id = id;
 	f.ignore();
 	std::getline(f, *name, '\n');
 	std::getline(f, description, '\t');
-	f >> strength >> dexterity >> constitution >> charisma >> currency >> current_map >> posx >> posy;
+	f >> strength >> dexterity >> constitution >> charisma >> currency;
+	for (int i = 0; i < NUM_SLOTS; i++) {
+		int x = 0, y = 0, xdup = 0, ydup = 0;
+		slots[i] = new ItemSlot(sf::Vector2f(x, y), i, sf::Vector2f(xdup, ydup));
+	}
+	while (true) {
+		f >> aux;
+		if (aux == ";") break;
+		else {
+			int item_nr = stoi(aux);
+			slots[game->Get_item(item_nr)->Equip_slot()]->Add_item(game->Get_item(item_nr), game->Get_item(item_nr)->Equip_slot());
+		}
+	}
+	f >> num_flags;
+	for (int i = 0; i < num_flags; i++) {
+		Quest_flag flag;
+		flag.Load(f);
+		set_flags.push_back(flag);
+	}
+	f >> current_map >> posx >> posy;
 	f >> aux;
 	texture.loadFromFile("Images//" + aux);
+	aux2 = aux.substr(aux.length() - 4, 4);
+	aux = aux.substr(0, aux.length() - 4);
+	aux = aux + "_diag" + aux2;
+	dialogue_texture.loadFromFile("Images//" + aux);
 	sprite_vertices.setPrimitiveType(sf::Quads);
 	sprite_vertices.resize(4);
 	sf::Vertex* quad = &sprite_vertices[0];
@@ -75,6 +166,8 @@ NPC::NPC(std::ifstream& f) {
 	if (aux != ";;") {
 		exit(-10);
 	}
+
+	dialogue_entry = nullptr;
 	RefreshHP();
 }
 
@@ -106,7 +199,9 @@ void NPC::Update_info(){
 
 Main_character::Main_character(std::ifstream& f)
 {
-	std::string aux;
+	int starting_quest_id;
+	std::string aux, aux2;
+	interact_inventory = nullptr;
 	inventar = new ::Inventory(PLAYER_INV);
 	id = 0;
 	std::getline(f, description, '\t');
@@ -127,8 +222,20 @@ Main_character::Main_character(std::ifstream& f)
 			inventar->Add_item(game->Get_item(item_nr));
 		}
 	}
+	while (true) {
+		f >> aux;
+		if (aux == ";")break;
+		else {
+			starting_quest_id = stoi(aux);
+			Add_quest(starting_quest_id);
+		}
+	}
 	f >> aux;
 	texture.loadFromFile("Images//" + aux);
+	aux2 = aux.substr(aux.length() - 4, 4);
+	aux = aux.substr(0, aux.length() - 4);
+	aux = aux + "_diag" + aux2;
+	dialogue_texture.loadFromFile("Images//" + aux);
 	sprite_vertices.setPrimitiveType(sf::Quads);
 	sprite_vertices.resize(4);
 	sf::Vertex* quad = &sprite_vertices[0];
@@ -150,6 +257,19 @@ Main_character::Main_character(std::ifstream& f)
 	RefreshHP();
 }
 
+void Main_character::Add_quest(int id){
+	Quest* quest = game->Get_quest(id);
+	quest->Take();
+	quests.push_back(quest);
+	game->Get_quest_container()->Add(quest);
+}
+
+void Main_character::Refresh_quests(){
+	for (std::list<Quest*>::iterator i = quests.begin(); i != quests.end(); i++) {
+		(*i)->Refresh();
+	}
+}
+
 void Main_character::LMB_Pressed(sf::Vector2i pos, int state) {
 	if (state == CHARACTER_VIEW) {
 		if (inventar->MouseWithinBounds(pos)) {
@@ -159,14 +279,19 @@ void Main_character::LMB_Pressed(sf::Vector2i pos, int state) {
 		}
 		else {
 			InventorySlot* item = inventar->Get_highlighted();
-			RetItem* out = nullptr;
+			RetItem out;
 			if (item != nullptr) {
 				for (int i = 0; i < NUM_SLOTS; i++) {
 					if (slots[i]->MouseWithinBounds(pos)) {
-						out = &slots[i]->Add_item(item->Get_item(), item->Get_item()->Equip_slot());
-						if (out != nullptr && out->code) {
+						out = slots[i]->Add_item(item->Get_item(), item->Get_item()->Equip_slot());
+						if (out.code==1) {
 							inventar->Remove_item(item->Order());
-							inventar->Add_item(out->item);
+							if (out.item != nullptr) {
+								inventar->Add_item(out.item);
+							}
+							if (out.extra!=nullptr) {
+								inventar->Add_item(out.extra);
+							}
 						}
 					}
 				}
@@ -176,7 +301,7 @@ void Main_character::LMB_Pressed(sf::Vector2i pos, int state) {
 	else if (state == ENCYCLOPEDIA) {
 		if (encyclopedia.MouseWithinBounds(pos)) encyclopedia.LMB_Pressed(pos);
 	}
-	else if (state == INV_TRANSFER) {
+	else if (state == INV_TRANSFER||state==TRADE_SCREEN) {
 		if (inventar->MouseWithinBounds(pos)) inventar->LMB_Pressed(pos);
 		else if (interact_inventory->MouseWithinBounds(pos)) interact_inventory->LMB_Pressed(pos);
 	}
@@ -188,7 +313,6 @@ void Main_character::Getname(){
 
 void Main_character::Update_info(){
 	std::string info = "";
-	RefreshHP();
 	info ="INFO:\n\nName: "+*name + "\n\n'"+description+"'\n\nSTR: " + std::to_string(strength) + "\nDEX: " + std::to_string(dexterity) + "\nCON: " + std::to_string(constitution) + "\nCHA: " + std::to_string(charisma) + "\n\nHP: "+std::to_string((int)hp)+"\nValuta: "+std::to_string((int)currency)+" $";
 	game->Update_string(CHAR_INFO, &info);
 	info ="HP: "+std::to_string((int)hp);
@@ -242,9 +366,6 @@ void Main_character::Action(){
 		quad[2].position = sf::Vector2f((posx + 1) * WIDTH, (posy + 1) * HEIGHT + upper_boundary);
 		quad[3].position = sf::Vector2f(posx * WIDTH, (posy + 1) * HEIGHT + upper_boundary);
 	}
-	else if (game->Check_terrain(current_map, sf::Vector2i(posx, posy)) == 5) {
-		
-	}
 }
 
 void ItemSlot::draw(sf::RenderTarget& target, sf::RenderStates state) const{
@@ -254,20 +375,38 @@ void ItemSlot::draw(sf::RenderTarget& target, sf::RenderStates state) const{
 		if (this->slot == ARMS) target.draw(duplicate, state);
 	}
 	else {
-		target.draw(img_vertices);
+		Item* item = game->Get_mainchar()->Get_slots()[RHAND]->item;
 		if (this->slot == ARMS) target.draw(duplicate);
+		if (this->slot == LHAND && item!=nullptr&&item->TwoHanded()) {
+			state.texture = item->Get_texture();
+			target.draw(img_vertices, state);
+		}
+		else {
+			target.draw(img_vertices);
+		}
 	}
 }
 
-int ItemSlot::MouseWithinBounds(sf::Vector2i pos){
+bool ItemSlot::MouseWithinBounds(sf::Vector2i pos){
 	return (img_vertices[0].position.x <= (float)pos.x) && ((float)pos.x <= img_vertices[1].position.x) && (img_vertices[0].position.y <= (float)pos.y) && ((float)pos.y <= img_vertices[3].position.y);
 }
 
-RetItem ItemSlot::Add_item(Item* item,int slot){	//will return nullptr when the operation fails,twohanders are not yet implemented
+RetItem ItemSlot::Add_item(Item* item,int slot){
 	RetItem result;
+	result.extra = nullptr;
 	result.item = this->item;
 	if (this->slot != item->Equip_slot()) result.code = 0;
+	else if (item->TwoHanded()) {
+		result.extra = game->Get_mainchar()->Get_slots()[LHAND]->item;
+		this->item = item;
+		game->Get_mainchar()->Get_slots()[LHAND]->item = nullptr;
+		result.code = 1;
+	}
 	else {
+		if (this->slot==LHAND&&game->Get_mainchar()->Get_slots()[RHAND]->item != nullptr && game->Get_mainchar()->Get_slots()[RHAND]->item->TwoHanded()) {
+			result.extra = game->Get_mainchar()->Get_slots()[RHAND]->item;
+			game->Get_mainchar()->Get_slots()[RHAND]->item = nullptr;
+		}
 		this->item = item;
 		result.code = 1;
 	}
@@ -315,4 +454,55 @@ ItemSlot::ItemSlot(sf::Vector2f pos,int slot,sf::Vector2f duplicatepos){
 			quad[i].color = sf::Color::White;
 		}
 	}
+}
+
+Vendor::Vendor(std::ifstream& f,int id){
+	std::string aux, aux2;
+	name = new std::string();
+	this->id = id;
+	inventar = new ::Inventory(NONPLAYER_INV);
+	f.ignore();
+	std::getline(f, *name, '\n');
+	std::getline(f, description, '\t');
+	f >> strength >> dexterity >> constitution >> charisma >> currency;
+	for (int i = 0; i < NUM_SLOTS; i++) {
+		int x = 0, y = 0, xdup = 0, ydup = 0;
+		slots[i] = new ItemSlot(sf::Vector2f(x, y), i, sf::Vector2f(xdup, ydup));
+	}
+	while (true) {
+		f >> aux;
+		if (aux == ";") break;
+		else {
+			int item_nr = stoi(aux);
+			inventar->Add_item(game->Get_item(item_nr));
+		}
+	}
+	f >> current_map >> posx >> posy;
+	f >> aux;
+	texture.loadFromFile("Images//" + aux);
+	aux2 = aux.substr(aux.length() - 4, 4);
+	aux = aux.substr(0, aux.length() - 4);
+	aux = aux + "_diag" + aux2;
+	dialogue_texture.loadFromFile("Images//" + aux);
+	sprite_vertices.setPrimitiveType(sf::Quads);
+	sprite_vertices.resize(4);
+	sf::Vertex* quad = &sprite_vertices[0];
+
+	quad[0].position = sf::Vector2f(posx * WIDTH, posy * HEIGHT + upper_boundary);
+	quad[1].position = sf::Vector2f((posx + 1) * WIDTH, posy * HEIGHT + upper_boundary);
+	quad[2].position = sf::Vector2f((posx + 1) * WIDTH, (posy + 1) * HEIGHT + upper_boundary);
+	quad[3].position = sf::Vector2f(posx * WIDTH, (posy + 1) * HEIGHT + upper_boundary);
+
+	quad[0].texCoords = sf::Vector2f(0, 0);
+	quad[1].texCoords = sf::Vector2f(WIDTH, 0);
+	quad[2].texCoords = sf::Vector2f(WIDTH, HEIGHT);
+	quad[3].texCoords = sf::Vector2f(0, HEIGHT);
+
+	f >> aux;
+	if (aux != ";;") {
+		exit(-35);
+	}
+
+	dialogue_entry = nullptr;
+	RefreshHP();
 }
